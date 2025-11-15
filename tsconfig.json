@@ -10,9 +10,6 @@
       "path": "./packages/healthcare-front"
     },
     {
-      "path": "./packages/healthcare-ui"
-    },
-    {
       "path": "./packages/healthcare-shared"
     }
   ]

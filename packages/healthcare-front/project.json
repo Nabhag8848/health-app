@@ -12,6 +12,14 @@
         "cwd": "packages/healthcare-front"
       },
       "dependsOn": ["^typecheck"]
+    },
+    "shadcn:component:add": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx shadcn@latest add {args.component}",
+        "cwd": "packages/healthcare-front"
+      },
+      "description": "Add a shadcn component to the UI library"
     }
   }
 }

@@ -40,7 +40,6 @@ Thumbs.db
 
 # Build artifacts that don't need to be uploaded
 packages/healthcare-front/dist/
-packages/healthcare-ui/dist/
 packages/healthcare-server/dist/
 dist/
 *.tsbuildinfo

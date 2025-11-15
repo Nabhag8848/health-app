@@ -4,9 +4,6 @@
   "include": [],
   "references": [
     {
-      "path": "../healthcare-ui"
-    },
-    {
       "path": "./tsconfig.app.json"
     }
   ]
