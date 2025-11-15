@@ -5,7 +5,7 @@ import path from 'path';
 
 export default defineConfig(() => ({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/packages/marketplace-front',
+  cacheDir: '../../node_modules/.vite/packages/healthcare-front',
   server: {
     port: 3001,
     host: 'localhost',
@@ -19,7 +19,7 @@ export default defineConfig(() => ({
     alias: {
       '@': path.resolve(__dirname, './src/modules'),
       '~': path.resolve(__dirname, './src'),
-      '@ui': path.resolve(__dirname, '../marketplace-ui/src'),
+      '@ui': path.resolve(__dirname, '../healthcare-ui/src'),
     },
   },
   build: {

@@ -3606,23 +3606,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mcp-marketplace/front@workspace:packages/marketplace-front":
+"@mcp-marketplace/front@workspace:packages/healthcare-front":
   version: 0.0.0-use.local
-  resolution: "@mcp-marketplace/front@workspace:packages/marketplace-front"
+  resolution: "@mcp-marketplace/front@workspace:packages/healthcare-front"
   languageName: unknown
   linkType: soft
 
-"@mcp-marketplace/server@workspace:packages/marketplace-server":
+"@mcp-marketplace/server@workspace:packages/healthcare-server":
   version: 0.0.0-use.local
-  resolution: "@mcp-marketplace/server@workspace:packages/marketplace-server"
+  resolution: "@mcp-marketplace/server@workspace:packages/healthcare-server"
   dependencies:
     "@mcp-marketplace/shared": "npm:*"
   languageName: unknown
   linkType: soft
 
-"@mcp-marketplace/shared@npm:*, @mcp-marketplace/shared@workspace:packages/marketplace-shared":
+"@mcp-marketplace/shared@npm:*, @mcp-marketplace/shared@workspace:packages/healthcare-shared":
   version: 0.0.0-use.local
-  resolution: "@mcp-marketplace/shared@workspace:packages/marketplace-shared"
+  resolution: "@mcp-marketplace/shared@workspace:packages/healthcare-shared"
   languageName: unknown
   linkType: soft
 
@@ -3706,9 +3706,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mcp-marketplace/ui@workspace:packages/marketplace-ui":
+"@mcp-marketplace/ui@workspace:packages/healthcare-ui":
   version: 0.0.0-use.local
-  resolution: "@mcp-marketplace/ui@workspace:packages/marketplace-ui"
+  resolution: "@mcp-marketplace/ui@workspace:packages/healthcare-ui"
   dependencies:
     "@radix-ui/react-slot": "npm:^1.2.3"
     class-variance-authority: "npm:^0.7.0"

@@ -2,8 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "name": "mcp-marketplace",
-  "buildCommand": "yarn nx build marketplace-front",
-  "outputDirectory": "packages/marketplace-front/dist",
+  "buildCommand": "yarn nx build healthcare-front",
+  "outputDirectory": "packages/healthcare-front/dist",
   "installCommand": "yarn install",
   "framework": "vite",
   "rewrites": [

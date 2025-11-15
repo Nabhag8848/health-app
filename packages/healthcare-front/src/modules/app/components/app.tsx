@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Badge } from '@mcp-marketplace/ui';
+import { Button, Badge } from '../../../../../healthcare-ui/src';
 import {
   Search,
   Package,
@@ -79,25 +79,25 @@ export function App() {
 
   const packages = [
     {
-      name: 'marketplace-front',
+      name: 'healthcare-front',
       description: 'React 19 frontend with Vite and Apollo Client',
       tech: 'React • TypeScript • GraphQL',
       type: 'Application',
     },
     {
-      name: 'marketplace-server',
+      name: 'healthcare-server',
       description: 'NestJS backend with GraphQL and TypeORM',
       tech: 'NestJS • PostgreSQL • Redis',
       type: 'Application',
     },
     {
-      name: 'marketplace-ui',
+      name: 'healthcare-ui',
       description: 'Shared component library with shadcn/ui',
       tech: 'shadcn/ui • Tailwind • Radix',
       type: 'Library',
     },
     {
-      name: 'marketplace-shared',
+      name: 'healthcare-shared',
       description: 'Common utilities and type definitions',
       tech: 'TypeScript • Utilities',
       type: 'Library',
@@ -340,7 +340,7 @@ export function App() {
                 GitHub
               </a>
               <a
-                href="https://github.com/Nabhag8848/monorepo-architecture/tree/main/packages/marketplace-ui#-usage-examples"
+                href="https://github.com/Nabhag8848/monorepo-architecture/tree/main/packages/healthcare-ui#-usage-examples"
                 className="hover:text-foreground transition-colors"
               >
                 Examples

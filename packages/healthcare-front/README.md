@@ -5,23 +5,27 @@ A modern React frontend application built with the latest React 19, Vite, and Ty
 ## 🚀 Technology Stack
 
 ### Core Framework
+
 - **React 19.0.0**: Latest React with concurrent features
 - **TypeScript 5.8.2**: Type-safe development
 - **Vite 6.0.0**: Fast development server and optimized builds
 - **React Router DOM 6.29.0**: Client-side routing with data loading
 
 ### GraphQL Integration
+
 - **Apollo Client 3.13.8**: Comprehensive GraphQL client with caching
 - **GraphQL Code Generator**: Automatic type generation from schema
 - **Apollo React Hooks**: Declarative data fetching
 
 ### UI & Styling
+
 - **@mcp-marketplace/ui**: Custom component library
 - **Tailwind CSS**: Utility-first CSS framework
 - **shadcn/ui**: Modern component primitives
 - **React Helmet Async**: Document head management
 
 ### Development Tools
+
 - **Vite**: Development server with HMR
 - **ESLint**: Code linting with React hooks rules
 - **Prettier**: Code formatting
@@ -30,7 +34,7 @@ A modern React frontend application built with the latest React 19, Vite, and Ty
 ## 🏗️ Project Structure
 
 ```
-packages/marketplace-front/
+packages/healthcare-front/
 ├── src/
 │   ├── modules/
 │   │   ├── app/                 # Application core
@@ -59,78 +63,85 @@ packages/marketplace-front/
 ## 🎯 Available Targets
 
 ### Development
+
 ```bash
 # Start development server
-nx dev marketplace-front
+nx dev healthcare-front
 
 # Development server with host binding
-nx dev marketplace-front --host
+nx dev healthcare-front --host
 
 # Development server on specific port
-nx dev marketplace-front --port 4200
+nx dev healthcare-front --port 4200
 ```
 
 ### Build & Preview
+
 ```bash
 # Build for production
-nx build marketplace-front
+nx build healthcare-front
 
 # Build with type checking
-nx typecheck marketplace-front && nx build marketplace-front
+nx typecheck healthcare-front && nx build healthcare-front
 
 # Preview production build
-nx preview marketplace-front
+nx preview healthcare-front
 
 # Serve static files
-nx serve-static marketplace-front
+nx serve-static healthcare-front
 ```
 
 ### GraphQL Code Generation
+
 ```bash
 # Generate GraphQL types and hooks
-nx graphql:codegen marketplace-front
+nx graphql:codegen healthcare-front
 
 # Watch for schema changes and regenerate
-nx graphql:codegen marketplace-front --watch
+nx graphql:codegen healthcare-front --watch
 ```
 
 ### Quality Assurance
+
 ```bash
 # Type checking
-nx typecheck marketplace-front
+nx typecheck healthcare-front
 
 # Linting
-nx lint marketplace-front
+nx lint healthcare-front
 
 # Fix linting issues
-nx lint marketplace-front --fix
+nx lint healthcare-front --fix
 
 # Run tests
-nx test marketplace-front
+nx test healthcare-front
 
 # Run tests in watch mode
-nx test marketplace-front --watch
+nx test healthcare-front --watch
 ```
 
 ## 🛠️ Development Setup
 
 ### Prerequisites
+
 - Node.js 20+ (specified in root `.nvmrc`)
 - Yarn 4.4.0+
-- Running backend server (marketplace-server)
+- Running backend server (healthcare-server)
 
 ### Quick Start
+
 ```bash
 # Install dependencies (from root)
 yarn install
 
 # Start the development server
-nx dev marketplace-front
+nx dev healthcare-front
 
 # Open browser to http://localhost:4173
 ```
 
 ### Environment Configuration
+
 Create `.env.local` in the package root for local development:
 
 ```env
@@ -147,24 +158,28 @@ SERVER_URL=http://localhost:3000
 ## 🎨 Features & Architecture
 
 ### Routing & Navigation
+
 - **React Router 6**: Modern routing with data loading
 - **Nested Routes**: Hierarchical page structure
 - **Route Protection**: Authentication-aware routing
 - **Dynamic Imports**: Code splitting for optimal performance
 
 ### State Management
+
 - **Apollo Client**: GraphQL state management and caching
 - **React Context**: Global application state
 - **Local State**: Component-level state with hooks
 - **URL State**: Router-managed state synchronization
 
 ### UI Components
+
 - **Design System**: Consistent component library
 - **Responsive Design**: Mobile-first approach
 - **Dark/Light Theme**: Automatic theme switching
 - **Accessibility**: WCAG compliant components
 
 ### Performance Optimizations
+
 - **Code Splitting**: Route-based lazy loading
 - **Bundle Optimization**: Vite's optimized bundling
 - **Image Optimization**: Modern image formats
@@ -173,6 +188,7 @@ SERVER_URL=http://localhost:3000
 ## 📊 GraphQL Integration
 
 ### Schema Integration
+
 The application automatically generates TypeScript types from the GraphQL schema:
 
 ```tsx
@@ -188,7 +204,7 @@ function UsersList() {
 
   return (
     <div>
-      {data?.users.map(user => (
+      {data?.users.map((user) => (
         <div key={user.id}>{user.name}</div>
       ))}
     </div>
@@ -197,6 +213,7 @@ function UsersList() {
 ```
 
 ### Apollo Client Configuration
+
 ```tsx
 // Configured with automatic error handling and caching
 import { ApolloClient, InMemoryCache } from '@apollo/client';
@@ -206,21 +223,22 @@ export const apolloClient = new ApolloClient({
   cache: new InMemoryCache({
     typePolicies: {
       // Custom caching strategies
-    }
+    },
   }),
   defaultOptions: {
     watchQuery: {
-      errorPolicy: 'all'
-    }
-  }
+      errorPolicy: 'all',
+    },
+  },
 });
 ```
 
 ### Code Generation Workflow
+
 ```bash
 # 1. Update GraphQL operations in .ts/.tsx files
 # 2. Run code generation
-nx graphql:codegen marketplace-front
+nx graphql:codegen healthcare-front
 
 # 3. Import generated hooks
 import { useMyQueryQuery } from '@/graphql/generated';
@@ -229,6 +247,7 @@ import { useMyQueryQuery } from '@/graphql/generated';
 ## 🧩 Component Architecture
 
 ### Page Components
+
 ```tsx
 // pages/HomePage.tsx
 import { PageTitle } from '@/ui/utilities/page-title/components/page-title';
@@ -245,6 +264,7 @@ export function HomePage() {
 ```
 
 ### Layout System
+
 ```tsx
 // ui/layout/components/default-layout.tsx
 import { Outlet } from 'react-router-dom';
@@ -265,6 +285,7 @@ export function DefaultLayout() {
 ```
 
 ### Custom Hooks
+
 ```tsx
 // hooks/use-create-router.tsx
 import { createBrowserRouter } from 'react-router-dom';
@@ -277,8 +298,8 @@ export const useCreateRouter = () => {
       element: <HomePage />,
       loader: async () => {
         // Data loading logic
-      }
-    }
+      },
+    },
   ]);
 };
 ```
@@ -286,6 +307,7 @@ export const useCreateRouter = () => {
 ## 🎯 Development Patterns
 
 ### Error Boundaries
+
 ```tsx
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -308,6 +330,7 @@ function App() {
 ```
 
 ### Loading States
+
 ```tsx
 import { Skeleton } from '@mcp-marketplace/ui';
 
@@ -323,6 +346,7 @@ function DataComponent() {
 ```
 
 ### Form Handling
+
 ```tsx
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -330,52 +354,49 @@ import * as z from 'zod';
 
 const schema = z.object({
   email: z.string().email(),
-  password: z.string().min(8)
+  password: z.string().min(8),
 });
 
 function LoginForm() {
   const { register, handleSubmit, formState } = useForm({
-    resolver: zodResolver(schema)
+    resolver: zodResolver(schema),
   });
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {/* Form fields */}
-    </form>
-  );
+  return <form onSubmit={handleSubmit(onSubmit)}>{/* Form fields */}</form>;
 }
 ```
 
 ## 🚀 Deployment
 
 ### Build Configuration
+
 ```bash
 # Production build
-nx build marketplace-front
+nx build healthcare-front
 
 # Build output
-packages/marketplace-front/dist/
+packages/healthcare-front/dist/
 ├── assets/          # Bundled CSS, JS, and other assets
 ├── index.html      # Entry HTML file
 └── ...             # Other static assets
 ```
 
 ### Vercel Deployment
+
 The application is configured for automatic Vercel deployment:
 
 ```json
 // vercel.json (in root)
 {
-  "buildCommand": "yarn nx build marketplace-front",
-  "outputDirectory": "packages/marketplace-front/dist",
+  "buildCommand": "yarn nx build healthcare-front",
+  "outputDirectory": "packages/healthcare-front/dist",
   "framework": "vite",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
 ```
 
 ### Environment Variables (Production)
+
 ```env
 # Production environment
 VITE_SERVER_URL=https://api.yourapp.com
@@ -385,18 +406,20 @@ VITE_NODE_ENV=production
 ## 🧪 Testing Strategy
 
 ### Unit Testing
+
 ```bash
 # Run tests
-nx test marketplace-front
+nx test healthcare-front
 
 # Coverage report
-nx test marketplace-front --coverage
+nx test healthcare-front --coverage
 
 # Watch mode
-nx test marketplace-front --watch
+nx test healthcare-front --watch
 ```
 
 ### Component Testing
+
 ```tsx
 import { render, screen } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
@@ -408,12 +431,13 @@ test('renders component correctly', () => {
       <MyComponent />
     </MockedProvider>
   );
-  
+
   expect(screen.getByText('Expected Text')).toBeInTheDocument();
 });
 ```
 
 ### E2E Testing (Future)
+
 - Playwright or Cypress integration
 - User journey testing
 - Visual regression testing
@@ -421,6 +445,7 @@ test('renders component correctly', () => {
 ## 📈 Performance Monitoring
 
 ### Bundle Analysis
+
 ```bash
 # Analyze bundle size
 npm run build -- --analyze
@@ -430,6 +455,7 @@ npx lighthouse http://localhost:4173 --output html
 ```
 
 ### Performance Best Practices
+
 - Route-based code splitting
 - Image optimization with WebP
 - Lazy loading for non-critical resources
@@ -438,6 +464,7 @@ npx lighthouse http://localhost:4173 --output html
 ## 🔧 Customization
 
 ### Adding New Routes
+
 ```tsx
 // 1. Define route enum
 export enum AppPath {
@@ -459,28 +486,26 @@ export function NewRoutePage() {
 ```
 
 ### Custom Theme
+
 ```tsx
 // Extend the UI library theme
 import { ThemeProvider } from '@mcp-marketplace/ui';
 
 const customTheme = {
   colors: {
-    primary: '#your-color'
-  }
+    primary: '#your-color',
+  },
 };
 
 function App() {
-  return (
-    <ThemeProvider theme={customTheme}>
-      {/* App content */}
-    </ThemeProvider>
-  );
+  return <ThemeProvider theme={customTheme}>{/* App content */}</ThemeProvider>;
 }
 ```
 
 ## 🤝 Contributing
 
 ### Code Standards
+
 - Use TypeScript for all new code
 - Follow React functional component patterns
 - Implement proper error boundaries
@@ -488,10 +513,11 @@ function App() {
 - Follow accessibility guidelines
 
 ### Pull Request Process
+
 1. Create feature branch from `main`
 2. Implement changes with tests
-3. Run quality checks: `nx lint marketplace-front && nx typecheck marketplace-front`
-4. Build successfully: `nx build marketplace-front`
+3. Run quality checks: `nx lint healthcare-front && nx typecheck healthcare-front`
+4. Build successfully: `nx build healthcare-front`
 5. Submit PR with clear description
 
 ## 📚 Resources
@@ -501,4 +527,4 @@ function App() {
 - [Apollo Client Documentation](https://apollographql.com/docs/react)
 - [React Router Documentation](https://reactrouter.com)
 - [TypeScript React Guide](https://react-typescript-cheatsheet.netlify.app)
-- [Nx React Documentation](https://nx.dev/recipes/react) 
+- [Nx React Documentation](https://nx.dev/recipes/react)

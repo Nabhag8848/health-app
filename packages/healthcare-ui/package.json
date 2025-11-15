@@ -25,6 +25,6 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "nx": {
-    "name": "marketplace-ui"
+    "name": "healthcare-ui"
   }
 }

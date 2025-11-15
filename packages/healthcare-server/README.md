@@ -45,7 +45,7 @@ A robust NestJS backend application providing GraphQL APIs, database management,
 ## 🏗️ Project Structure
 
 ```
-packages/marketplace-server/
+packages/healthcare-server/
 ├── src/
 │   ├── database/
 │   │   ├── datasource/         # Database connection configuration
@@ -78,60 +78,60 @@ packages/marketplace-server/
 
 ```bash
 # Start development server
-nx start marketplace-server
+nx start healthcare-server
 
 # Start production server
-nx start:production marketplace-server
+nx start:production healthcare-server
 
 # Build for production
-nx build marketplace-server
+nx build healthcare-server
 
 # Build with optimizations
-nx build:production marketplace-server
+nx build:production healthcare-server
 ```
 
 ### Database Operations
 
 ```bash
 # Deploy pending migrations
-nx migration:deploy marketplace-server
+nx migration:deploy healthcare-server
 
 # Revert last migration
-nx migration:revert marketplace-server
+nx migration:revert healthcare-server
 
 # Generate migration from entity changes
-nx migration:generate marketplace-server --name=CreateUserTable
+nx migration:generate healthcare-server --name=CreateUserTable
 
 # Create empty migration file
-nx migration:create marketplace-server --name=AddIndexesToUserTable
+nx migration:create healthcare-server --name=AddIndexesToUserTable
 
 # Show migration status
-nx migration:show marketplace-server
+nx migration:show healthcare-server
 
 # Sync schema (development only)
-nx migration:schema:sync marketplace-server
+nx migration:schema:sync healthcare-server
 ```
 
 ### Quality Assurance
 
 ```bash
 # Type checking
-nx typecheck marketplace-server
+nx typecheck healthcare-server
 
 # Code linting
-nx lint marketplace-server
+nx lint healthcare-server
 
 # Fix linting issues
-nx lint marketplace-server --fix
+nx lint healthcare-server --fix
 
 # Run tests
-nx test marketplace-server
+nx test healthcare-server
 
 # Run tests with coverage
-nx test marketplace-server --coverage
+nx test healthcare-server --coverage
 
 # Run tests in watch mode
-nx test marketplace-server --watch
+nx test healthcare-server --watch
 ```
 
 ## 🛠️ Development Setup
@@ -154,10 +154,10 @@ yarn install
 docker-compose up -d
 
 # Run database migrations
-nx migration:deploy marketplace-server
+nx migration:deploy healthcare-server
 
 # Start development server
-nx start marketplace-server
+nx start healthcare-server
 
 # GraphQL Playground available at http://localhost:3000/graphql
 ```
@@ -227,11 +227,11 @@ export class Mcp extends BaseEntity {
 ```bash
 # 1. Modify entities
 # 2. Generate migration
-nx migration:generate marketplace-server --name=DescriptiveName
+nx migration:generate healthcare-server --name=DescriptiveName
 
 # 3. Review generated migration
 # 4. Deploy to database
-nx migration:deploy marketplace-server
+nx migration:deploy healthcare-server
 ```
 
 ## 📊 GraphQL API
@@ -378,7 +378,7 @@ export class HealthController {
     return {
       status: 'ok',
       timestamp: new Date().toISOString(),
-      service: 'marketplace-server',
+      service: 'healthcare-server',
     };
   }
 
@@ -499,11 +499,11 @@ RUN yarn install
 
 # Build application
 COPY . .
-RUN yarn nx build marketplace-server --configuration=production
+RUN yarn nx build healthcare-server --configuration=production
 
 # Start application
 EXPOSE 3000
-CMD ["yarn", "nx", "start", "marketplace-server", "--configuration=production"]
+CMD ["yarn", "nx", "start", "healthcare-server", "--configuration=production"]
 ```
 
 ## 🧪 Testing Strategy
@@ -556,16 +556,16 @@ describe('Database Integration', () => {
 
 ```bash
 # Unit tests
-nx test marketplace-server
+nx test healthcare-server
 
 # Integration tests
-nx test:integration marketplace-server
+nx test:integration healthcare-server
 
 # E2E tests
-nx test:e2e marketplace-server
+nx test:e2e healthcare-server
 
 # Coverage report
-nx test marketplace-server --coverage
+nx test healthcare-server --coverage
 ```
 
 ## 🔧 Module Development
@@ -574,13 +574,13 @@ nx test marketplace-server --coverage
 
 ```bash
 # Generate new module
-nx g @nx/nest:module feature-name --project=marketplace-server
+nx g @nx/nest:module feature-name --project=healthcare-server
 
 # Generate resolver
-nx g @nx/nest:resolver feature-name --project=marketplace-server
+nx g @nx/nest:resolver feature-name --project=healthcare-server
 
 # Generate service
-nx g @nx/nest:service feature-name --project=marketplace-server
+nx g @nx/nest:service feature-name --project=healthcare-server
 ```
 
 ### Module Structure
@@ -679,9 +679,9 @@ export function Track() {
 2. Implement changes with tests
 3. Run quality checks:
    ```bash
-   nx lint marketplace-server
-   nx typecheck marketplace-server
-   nx test marketplace-server
+   nx lint healthcare-server
+   nx typecheck healthcare-server
+   nx test healthcare-server
    ```
 4. Create database migration if needed
 5. Update documentation

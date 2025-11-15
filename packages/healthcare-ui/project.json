@@ -1,22 +1,22 @@
 {
-  "name": "marketplace-ui",
+  "name": "healthcare-ui",
   "tags": ["type:lib", "scope:ui"],
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/marketplace-ui/src",
+  "sourceRoot": "packages/healthcare-ui/src",
   "projectType": "library",
   "targets": {
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
         "command": "tsc --project tsconfig.lib.json --noEmit",
-        "cwd": "packages/marketplace-ui"
+        "cwd": "packages/healthcare-ui"
       }
     },
     "shadcn:component:add": {
       "executor": "nx:run-commands",
       "options": {
         "command": "npx shadcn@latest add {args.component}",
-        "cwd": "packages/marketplace-ui"
+        "cwd": "packages/healthcare-ui"
       },
       "description": "Add a shadcn component to the UI library"
     }

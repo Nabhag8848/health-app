@@ -1,25 +1,25 @@
 {
-  "name": "marketplace-shared",
+  "name": "healthcare-shared",
   "tags": ["type:lib", "scope:shared"],
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/marketplace-shared/src",
+  "sourceRoot": "packages/healthcare-shared/src",
   "projectType": "library",
   "targets": {
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
         "command": "tsc --project tsconfig.lib.json --noEmit",
-        "cwd": "packages/marketplace-shared"
+        "cwd": "packages/healthcare-shared"
       }
     },
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "packages/marketplace-shared/dist",
-        "main": "packages/marketplace-shared/src/index.ts",
-        "tsConfig": "packages/marketplace-shared/tsconfig.lib.json",
-        "packageJson": "packages/marketplace-shared/package.json"
+        "outputPath": "packages/healthcare-shared/dist",
+        "main": "packages/healthcare-shared/src/index.ts",
+        "tsConfig": "packages/healthcare-shared/tsconfig.lib.json",
+        "packageJson": "packages/healthcare-shared/package.json"
       }
     }
   }

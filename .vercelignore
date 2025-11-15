@@ -39,14 +39,14 @@ Thumbs.db
 *~
 
 # Build artifacts that don't need to be uploaded
-packages/marketplace-front/dist/
-packages/marketplace-ui/dist/
-packages/marketplace-server/dist/
+packages/healthcare-front/dist/
+packages/healthcare-ui/dist/
+packages/healthcare-server/dist/
 dist/
 *.tsbuildinfo
 
 # Exclude server package entirely from frontend deployment
-packages/marketplace-server/
+packages/healthcare-server/
 
 # Documentation and non-essential files
 *.md

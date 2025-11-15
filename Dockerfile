@@ -16,10 +16,10 @@ COPY . .
 RUN yarn install 
 
 # Build the application
-RUN yarn nx build marketplace-server --configuration=production
+RUN yarn nx build healthcare-server --configuration=production
 
 # Expose the port that your app runs on
 EXPOSE 3000
 
 # Start the application
-CMD ["yarn", "nx", "start", "marketplace-server", "--configuration=production"] 
+CMD ["yarn", "nx", "start", "healthcare-server", "--configuration=production"] 

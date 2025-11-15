@@ -244,9 +244,9 @@ const CustomButton = ({ className, ...props }) => {
 
 ```bash
 # Add shadcn/ui components to the library
-nx shadcn:component:add marketplace-ui --component=button
-nx shadcn:component:add marketplace-ui --component=dialog
-nx shadcn:component:add marketplace-ui --component=dropdown-menu
+nx shadcn:component:add healthcare-ui --component=button
+nx shadcn:component:add healthcare-ui --component=dialog
+nx shadcn:component:add healthcare-ui --component=dropdown-menu
 ```
 
 ### Available shadcn/ui Components
@@ -270,16 +270,16 @@ Run the add command with any of these components:
 
 ```bash
 # Type checking
-nx typecheck marketplace-ui
+nx typecheck healthcare-ui
 
 # Linting
-nx lint marketplace-ui
+nx lint healthcare-ui
 
 # Build the library
-nx build marketplace-ui
+nx build healthcare-ui
 
 # Watch for changes during development
-nx build marketplace-ui --watch
+nx build healthcare-ui --watch
 ```
 
 ## 📋 Component Guidelines
@@ -308,7 +308,7 @@ nx build marketplace-ui --watch
 
 ## 🔄 Integration with Other Packages
 
-### With Frontend (`marketplace-front`)
+### With Frontend (`healthcare-front`)
 
 ```tsx
 // Import components directly
@@ -326,7 +326,7 @@ function MyPage() {
 }
 ```
 
-### With Shared Utilities (`marketplace-shared`)
+### With Shared Utilities (`healthcare-shared`)
 
 ```tsx
 import { Button } from '@mcp-marketplace/ui';
@@ -352,13 +352,13 @@ function EmailForm() {
 
 ```bash
 # Run component tests
-nx test marketplace-ui
+nx test healthcare-ui
 
 # Run tests in watch mode
-nx test marketplace-ui --watch
+nx test healthcare-ui --watch
 
 # Run tests with coverage
-nx test marketplace-ui --coverage
+nx test healthcare-ui --coverage
 ```
 
 ### Testing Guidelines
@@ -373,10 +373,10 @@ nx test marketplace-ui --coverage
 
 ```bash
 # Build the library
-nx build marketplace-ui
+nx build healthcare-ui
 
 # Build with type checking
-nx typecheck marketplace-ui && nx build marketplace-ui
+nx typecheck healthcare-ui && nx build healthcare-ui
 ```
 
 The build output includes:
@@ -394,13 +394,13 @@ The build output includes:
 2. Implement utility with tests
 3. Run quality checks:
    ```bash
-   nx lint marketplace-ui
-   nx typecheck marketplace-ui
-   nx test marketplace-ui
+   nx lint healthcare-ui
+   nx typecheck healthcare-ui
+   nx test healthcare-ui
    ```
 4. Build and verify output:
    ```bash
-   nx build marketplace-ui
+   nx build healthcare-ui
    ```
 5. Submit pull request
 

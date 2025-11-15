@@ -22,7 +22,7 @@
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@mcp-marketplace/shared": ["packages/marketplace-shared/dist/src/index"]
+      "@mcp-marketplace/shared": ["packages/healthcare-shared/dist/src/index"]
     }
   }
 }

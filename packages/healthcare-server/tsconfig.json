@@ -4,7 +4,7 @@
   "include": [],
   "references": [
     {
-      "path": "../marketplace-ui"
+      "path": "../healthcare-shared"
     },
     {
       "path": "./tsconfig.app.json"

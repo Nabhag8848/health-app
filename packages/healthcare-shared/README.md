@@ -5,6 +5,7 @@ A TypeScript utility library providing shared functionality, types, constants, a
 ## 🎯 Purpose
 
 The shared package serves as the foundation for:
+
 - **Type Definitions**: Common TypeScript interfaces and types
 - **Utility Functions**: Reusable helper functions and validators
 - **Constants**: Application-wide constants and enums
@@ -14,11 +15,13 @@ The shared package serves as the foundation for:
 ## 🚀 Technology Stack
 
 ### Core Technologies
+
 - **TypeScript 5.8.2**: Strict type definitions and utilities
 - **Nx Build System**: Optimized library builds
 - **Tree Shaking**: Unused code elimination for optimal bundles
 
 ### Supported Environments
+
 - **Node.js 20+**: Server-side usage in NestJS applications
 - **Modern Browsers**: ES2022+ compatible for frontend applications
 - **Build Tools**: Compatible with Vite, Webpack, and other bundlers
@@ -26,7 +29,7 @@ The shared package serves as the foundation for:
 ## 🏗️ Project Structure
 
 ```
-packages/marketplace-shared/
+packages/healthcare-shared/
 ├── src/
 │   ├── util/                   # Utility functions and helpers
 │   │   ├── validation/         # Input validation utilities
@@ -54,35 +57,38 @@ packages/marketplace-shared/
 ## 🎯 Available Targets
 
 ### Development
+
 ```bash
 # Build the library
-nx build marketplace-shared
+nx build healthcare-shared
 
 # Build in watch mode
-nx build marketplace-shared --watch
+nx build healthcare-shared --watch
 
 # Type checking
-nx typecheck marketplace-shared
+nx typecheck healthcare-shared
 
 # Code linting
-nx lint marketplace-shared
+nx lint healthcare-shared
 ```
 
 ### Quality Assurance
+
 ```bash
 # Run tests
-nx test marketplace-shared
+nx test healthcare-shared
 
 # Run tests with coverage
-nx test marketplace-shared --coverage
+nx test healthcare-shared --coverage
 
 # Run tests in watch mode
-nx test marketplace-shared --watch
+nx test healthcare-shared --watch
 ```
 
 ## 📦 Utility Functions
 
 ### Validation Utilities
+
 ```typescript
 // String validation
 export function isNonEmpty(value: string | null | undefined): value is string {
@@ -97,7 +103,9 @@ export function isUndefined<T>(value: T | undefined): value is undefined {
   return value === undefined;
 }
 
-export function isNullOrUndefined<T>(value: T | null | undefined): value is null | undefined {
+export function isNullOrUndefined<T>(
+  value: T | null | undefined
+): value is null | undefined {
   return isNull(value) || isUndefined(value);
 }
 
@@ -119,6 +127,7 @@ export function isValidUrl(url: string): boolean {
 ```
 
 ### Array and Object Utilities
+
 ```typescript
 // Array utilities
 export function unique<T>(array: T[]): T[] {
@@ -147,13 +156,13 @@ export function chunk<T>(array: T[], size: number): T[][] {
 // Object utilities
 export function omit<T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
   const result = { ...obj };
-  keys.forEach(key => delete result[key]);
+  keys.forEach((key) => delete result[key]);
   return result;
 }
 
 export function pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
   const result = {} as Pick<T, K>;
-  keys.forEach(key => {
+  keys.forEach((key) => {
     if (key in obj) {
       result[key] = obj[key];
     }
@@ -163,6 +172,7 @@ export function pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
 ```
 
 ### String Utilities
+
 ```typescript
 // String formatting
 export function capitalize(str: string): string {
@@ -193,7 +203,8 @@ export function snakeCase(str: string): string {
 
 // String generation
 export function generateId(length: number = 8): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const chars =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
   for (let i = 0; i < length; i++) {
     result += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -211,9 +222,13 @@ export function generateSlug(text: string): string {
 ```
 
 ### Date Utilities
+
 ```typescript
 // Date formatting
-export function formatDate(date: Date, format: 'short' | 'long' | 'iso' = 'short'): string {
+export function formatDate(
+  date: Date,
+  format: 'short' | 'long' | 'iso' = 'short'
+): string {
   switch (format) {
     case 'short':
       return date.toLocaleDateString();
@@ -221,7 +236,7 @@ export function formatDate(date: Date, format: 'short' | 'long' | 'iso' = 'short
       return date.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
-        day: 'numeric'
+        day: 'numeric',
       });
     case 'iso':
       return date.toISOString();
@@ -250,6 +265,7 @@ export function differenceInDays(dateLeft: Date, dateRight: Date): number {
 ## 🔧 Type Definitions
 
 ### Common Types
+
 ```typescript
 // API Response types
 export interface ApiResponse<T = any> {
@@ -304,6 +320,7 @@ export interface UserProfile {
 ```
 
 ### Request/Response Types
+
 ```typescript
 // Authentication
 export interface LoginRequest {
@@ -340,6 +357,7 @@ export interface DeleteResourceRequest {
 ```
 
 ### Utility Types
+
 ```typescript
 // Advanced utility types
 export type Nullable<T> = T | null;
@@ -368,6 +386,7 @@ export type OptionalKeys<T> = {
 ## 📋 Constants and Enums
 
 ### Application Constants
+
 ```typescript
 // Error codes
 export const ERROR_CODES = {
@@ -379,7 +398,7 @@ export const ERROR_CODES = {
   RATE_LIMITED: 'RATE_LIMITED',
 } as const;
 
-export type ErrorCode = typeof ERROR_CODES[keyof typeof ERROR_CODES];
+export type ErrorCode = (typeof ERROR_CODES)[keyof typeof ERROR_CODES];
 
 // HTTP status codes
 export const HTTP_STATUS = {
@@ -404,6 +423,7 @@ export const PAGINATION = {
 ```
 
 ### Application Enums
+
 ```typescript
 // User roles
 export enum UserRole {
@@ -441,20 +461,26 @@ export enum FileType {
 ## 🔄 Usage Examples
 
 ### In Frontend Applications
+
 ```typescript
 // React component example
-import { isNonEmpty, formatDate, User, ApiResponse } from '@mcp-marketplace/shared';
+import {
+  isNonEmpty,
+  formatDate,
+  User,
+  ApiResponse,
+} from '@mcp-marketplace/shared';
 
 interface UserListProps {
   users: User[];
 }
 
 function UserList({ users }: UserListProps) {
-  const activeUsers = users.filter(user => user.isActive);
+  const activeUsers = users.filter((user) => user.isActive);
 
   return (
     <div>
-      {activeUsers.map(user => (
+      {activeUsers.map((user) => (
         <div key={user.id}>
           <h3>{isNonEmpty(user.firstName) ? user.firstName : 'Unknown'}</h3>
           <p>Joined: {formatDate(user.createdAt, 'long')}</p>
@@ -466,14 +492,15 @@ function UserList({ users }: UserListProps) {
 ```
 
 ### In Backend Applications
+
 ```typescript
 // NestJS service example
 import { Injectable } from '@nestjs/common';
-import { 
-  isValidEmail, 
-  generateId, 
-  User, 
-  CreateResourceRequest 
+import {
+  isValidEmail,
+  generateId,
+  User,
+  CreateResourceRequest,
 } from '@mcp-marketplace/shared';
 
 @Injectable()
@@ -503,6 +530,7 @@ export class UserService {
 ```
 
 ### Form Validation
+
 ```typescript
 // Form validation with shared utilities
 import { isNonEmpty, isValidEmail } from '@mcp-marketplace/shared';
@@ -537,6 +565,7 @@ function validateForm(data: FormData): string[] {
 ## 🧪 Testing
 
 ### Unit Tests
+
 ```typescript
 // Example test file
 import { isNonEmpty, isValidEmail, capitalize } from '@mcp-marketplace/shared';
@@ -579,26 +608,28 @@ describe('String Utilities', () => {
 ```
 
 ### Running Tests
+
 ```bash
 # Run all tests
-nx test marketplace-shared
+nx test healthcare-shared
 
 # Run tests with coverage
-nx test marketplace-shared --coverage
+nx test healthcare-shared --coverage
 
 # Run tests in watch mode
-nx test marketplace-shared --watch
+nx test healthcare-shared --watch
 ```
 
 ## 📦 Build and Distribution
 
 ### Building the Library
+
 ```bash
 # Build for production
-nx build marketplace-shared
+nx build healthcare-shared
 
 # Build output structure
-packages/marketplace-shared/dist/
+packages/healthcare-shared/dist/
 ├── src/
 │   ├── util/              # Compiled utility functions
 │   ├── types/             # Type definitions
@@ -609,6 +640,7 @@ packages/marketplace-shared/dist/
 ```
 
 ### Package.json Configuration
+
 ```json
 {
   "name": "@mcp-marketplace/shared",
@@ -630,6 +662,7 @@ packages/marketplace-shared/dist/
 ## 🔧 Development Guidelines
 
 ### Adding New Utilities
+
 1. Create function in appropriate utility directory
 2. Add comprehensive TypeScript types
 3. Write unit tests with good coverage
@@ -637,12 +670,14 @@ packages/marketplace-shared/dist/
 5. Update documentation
 
 ### Type Definition Standards
+
 - Use strict TypeScript configurations
 - Prefer interfaces over types for object shapes
 - Use utility types for complex transformations
 - Document complex types with JSDoc comments
 
 ### Testing Requirements
+
 - Unit test all public functions
 - Test edge cases and error conditions
 - Maintain >90% code coverage
@@ -651,21 +686,23 @@ packages/marketplace-shared/dist/
 ## 🤝 Contributing
 
 ### Development Workflow
+
 1. Create feature branch from `main`
 2. Implement utility with tests
 3. Run quality checks:
    ```bash
-   nx lint marketplace-shared
-   nx typecheck marketplace-shared
-   nx test marketplace-shared
+   nx lint healthcare-shared
+   nx typecheck healthcare-shared
+   nx test healthcare-shared
    ```
 4. Build and verify output:
    ```bash
-   nx build marketplace-shared
+   nx build healthcare-shared
    ```
 5. Submit pull request
 
 ### Code Standards
+
 - Use TypeScript strict mode
 - Follow functional programming patterns
 - Avoid external dependencies when possible
@@ -677,4 +714,4 @@ packages/marketplace-shared/dist/
 - [TypeScript Handbook](https://typescriptlang.org/docs)
 - [Nx Library Guide](https://nx.dev/concepts/more-concepts/library-types)
 - [TypeScript Utility Types](https://typescriptlang.org/docs/handbook/utility-types.html)
-- [Jest Testing Framework](https://jestjs.io/docs/getting-started) 
+- [Jest Testing Framework](https://jestjs.io/docs/getting-started)

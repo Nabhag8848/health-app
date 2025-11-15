@@ -9,10 +9,10 @@ This monorepo follows a modular architecture with clear separation of concerns:
 ```
 monorepo-template/
 ├── packages/
-│   ├── marketplace-front/      # React frontend application
-│   ├── marketplace-server/     # NestJS backend application
-│   ├── marketplace-ui/         # Shared UI component library
-│   └── marketplace-shared/     # Shared utilities and types
+│   ├── healthcare-front/      # React frontend application
+│   ├── healthcare-server/     # NestJS backend application
+│   ├── healthcare-ui/         # Shared UI component library
+│   └── healthcare-shared/     # Shared utilities and types
 ├── docker-compose.yml          # Development infrastructure
 ├── Dockerfile                  # Production container
 ├── vercel.json                 # Frontend deployment config
@@ -21,7 +21,7 @@ monorepo-template/
 
 ## 📦 Package Structure
 
-### 🎨 Frontend Application (`marketplace-front`)
+### 🎨 Frontend Application (`healthcare-front`)
 
 - **Type**: Application (`type:app`, `scope:front`)
 - **Framework**: React with Vite
@@ -31,7 +31,7 @@ monorepo-template/
   - Responsive design with Tailwind CSS
   - Component-driven architecture
 
-### 🔧 Backend Application (`marketplace-server`)
+### 🔧 Backend Application (`healthcare-server`)
 
 - **Type**: Application (`type:app`, `scope:server`)
 - **Framework**: NestJS with GraphQL
@@ -43,7 +43,7 @@ monorepo-template/
   - Health monitoring endpoints
   - Database migrations system
 
-### 🎨 UI Component Library (`marketplace-ui`)
+### 🎨 UI Component Library (`healthcare-ui`)
 
 - **Type**: Library (`type:lib`, `scope:ui`)
 - **Framework**: shadcn/ui + Tailwind CSS
@@ -53,7 +53,7 @@ monorepo-template/
   - Dark/light theme support
   - Accessibility-first components
 
-### 📚 Shared Library (`marketplace-shared`)
+### 📚 Shared Library (`healthcare-shared`)
 
 - **Type**: Library (`type:lib`, `scope:shared`)
 - **Purpose**: Cross-package utilities and types
@@ -77,46 +77,46 @@ nx lint <package>
 nx build <package>
 ```
 
-### Frontend-Specific Targets (`marketplace-front`)
+### Frontend-Specific Targets (`healthcare-front`)
 
 ```bash
 # Development server
-nx dev marketplace-front
+nx dev healthcare-front
 
 # Build for production
-nx build marketplace-front
+nx build healthcare-front
 
 # Preview production build
-nx preview marketplace-front
+nx preview healthcare-front
 
 # Generate GraphQL types
-nx graphql:codegen marketplace-front
+nx graphql:codegen healthcare-front
 ```
 
-### Backend-Specific Targets (`marketplace-server`)
+### Backend-Specific Targets (`healthcare-server`)
 
 ```bash
 # Start development server
-nx start marketplace-server
+nx start healthcare-server
 
 # Start production server
-nx start:production marketplace-server
+nx start:production healthcare-server
 
 # Database migrations
-nx migration:deploy marketplace-server
-nx migration:revert marketplace-server
-nx migration:generate marketplace-server --name=CreateUsers
-nx migration:create marketplace-server --name=AddIndexes
-nx migration:show marketplace-server
-nx migration:schema:sync marketplace-server
+nx migration:deploy healthcare-server
+nx migration:revert healthcare-server
+nx migration:generate healthcare-server --name=CreateUsers
+nx migration:create healthcare-server --name=AddIndexes
+nx migration:show healthcare-server
+nx migration:schema:sync healthcare-server
 ```
 
-### UI Library Targets (`marketplace-ui`)
+### UI Library Targets (`healthcare-ui`)
 
 ```bash
 # Add shadcn/ui components
-nx shadcn:component:add marketplace-ui --component=button
-nx shadcn:component:add marketplace-ui --component=dialog
+nx shadcn:component:add healthcare-ui --component=button
+nx shadcn:component:add healthcare-ui --component=dialog
 ```
 
 ### Multi-Package Operations
@@ -157,10 +157,10 @@ yarn install
 docker-compose up -d
 
 # Start backend development server
-nx start marketplace-server
+nx start healthcare-server
 
 # Start frontend development server (in another terminal)
-nx dev marketplace-front
+nx dev healthcare-front
 ```
 
 ### Environment Configuration
@@ -244,8 +244,8 @@ docker run -p 3000:3000 monorepo-template
 
 The frontend is configured for automatic deployment to Vercel:
 
-- Build command: `yarn nx build marketplace-front`
-- Output directory: `packages/marketplace-front/dist`
+- Build command: `yarn nx build healthcare-front`
+- Output directory: `packages/healthcare-front/dist`
 - Framework: Vite
 - Supports SPA routing with rewrites
 
@@ -256,11 +256,11 @@ The frontend is configured for automatic deployment to Vercel:
 nx run-many -t test
 
 # Run tests for specific package
-nx test marketplace-server
-nx test marketplace-front
+nx test healthcare-server
+nx test healthcare-front
 
 # Run tests in watch mode
-nx test marketplace-server --watch
+nx test healthcare-server --watch
 
 # Run tests with coverage
 nx run-many -t test --coverage
@@ -288,26 +288,26 @@ nx run-many -t test --coverage
 
 ```bash
 # Generate React component
-nx g @nx/react:component MyComponent --project=marketplace-front
+nx g @nx/react:component MyComponent --project=healthcare-front
 
 # Generate NestJS module
-nx g @nx/nest:module my-feature --project=marketplace-server
+nx g @nx/nest:module my-feature --project=healthcare-server
 
 # Add shadcn/ui component
-nx shadcn:component:add marketplace-ui --component=card
+nx shadcn:component:add healthcare-ui --component=card
 ```
 
 ### Database Migrations
 
 ```bash
 # Generate migration from entity changes
-nx migration:generate marketplace-server --name=AddUserTable
+nx migration:generate healthcare-server --name=AddUserTable
 
 # Create empty migration
-nx migration:create marketplace-server --name=CustomMigration
+nx migration:create healthcare-server --name=CustomMigration
 
 # Run migrations
-nx migration:deploy marketplace-server
+nx migration:deploy healthcare-server
 ```
 
 ## 📝 Customization Guide
@@ -321,9 +321,9 @@ nx migration:deploy marketplace-server
 
 ### Technology Replacements
 
-- **Database**: Replace TypeORM configuration in `packages/marketplace-server/src/database/`
+- **Database**: Replace TypeORM configuration in `packages/healthcare-server/src/database/`
 - **Styling**: Modify Tailwind configuration in `tailwind.preset.js`
-- **UI Components**: Customize shadcn/ui in `packages/marketplace-ui/components.json`
+- **UI Components**: Customize shadcn/ui in `packages/healthcare-ui/components.json`
 - **Build Tool**: Update Vite configuration for frontend changes
 
 ## 🚀 Production Considerations

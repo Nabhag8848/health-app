@@ -4,16 +4,16 @@
   "files": [],
   "references": [
     {
-      "path": "./packages/marketplace-server"
+      "path": "./packages/healthcare-server"
     },
     {
-      "path": "./packages/marketplace-front"
+      "path": "./packages/healthcare-front"
     },
     {
-      "path": "./packages/marketplace-ui"
+      "path": "./packages/healthcare-ui"
     },
     {
-      "path": "./packages/marketplace-shared"
+      "path": "./packages/healthcare-shared"
     }
   ]
 }

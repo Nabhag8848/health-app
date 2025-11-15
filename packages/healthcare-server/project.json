@@ -1,15 +1,15 @@
 {
-  "name": "marketplace-server",
+  "name": "healthcare-server",
   "tags": ["type:app", "scope:server"],
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/marketplace-server/src",
+  "sourceRoot": "packages/healthcare-server/src",
   "projectType": "application",
   "targets": {
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
         "command": "tsc --project tsconfig.app.json --noEmit",
-        "cwd": "packages/marketplace-server"
+        "cwd": "packages/healthcare-server"
       },
       "dependsOn": ["^typecheck"]
     },
@@ -17,10 +17,10 @@
       "executor": "@nx/js:tsc",
       "dependsOn": ["^build"],
       "options": {
-        "outputPath": "packages/marketplace-server/dist",
-        "main": "packages/marketplace-server/src/main.ts",
-        "tsConfig": "packages/marketplace-server/tsconfig.app.json",
-        "assets": ["packages/marketplace-server/src/assets"]
+        "outputPath": "packages/healthcare-server/dist",
+        "main": "packages/healthcare-server/src/main.ts",
+        "tsConfig": "packages/healthcare-server/tsconfig.app.json",
+        "assets": ["packages/healthcare-server/src/assets"]
       },
       "configurations": {
         "production": {
@@ -35,16 +35,16 @@
       "defaultConfiguration": "development",
       "dependsOn": ["build"],
       "options": {
-        "buildTarget": "marketplace-server:build",
+        "buildTarget": "healthcare-server:build",
         "runBuildTargetDependencies": false
       },
       "configurations": {
         "development": {
-          "buildTarget": "marketplace-server:build",
+          "buildTarget": "healthcare-server:build",
           "inspect": false
         },
         "production": {
-          "buildTarget": "marketplace-server:build:production",
+          "buildTarget": "healthcare-server:build:production",
           "inspect": false
         }
       }
@@ -53,42 +53,42 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "typeorm-ts-node-commonjs migration:run -d src/database/datasource/app.datasource.ts",
-        "cwd": "packages/marketplace-server"
+        "cwd": "packages/healthcare-server"
       }
     },
     "migration:revert": {
       "executor": "nx:run-commands",
       "options": {
         "command": "typeorm-ts-node-commonjs migration:revert -d src/database/datasource/app.datasource.ts",
-        "cwd": "packages/marketplace-server"
+        "cwd": "packages/healthcare-server"
       }
     },
     "migration:generate": {
       "executor": "nx:run-commands",
       "options": {
         "command": "typeorm-ts-node-commonjs migration:generate src/database/migrations/{args.name} -d src/database/datasource/app.datasource.ts",
-        "cwd": "packages/marketplace-server"
+        "cwd": "packages/healthcare-server"
       }
     },
     "migration:create": {
       "executor": "nx:run-commands",
       "options": {
         "command": "typeorm-ts-node-commonjs migration:create src/database/migrations/{args.name}",
-        "cwd": "packages/marketplace-server"
+        "cwd": "packages/healthcare-server"
       }
     },
     "migration:show": {
       "executor": "nx:run-commands",
       "options": {
         "command": "typeorm-ts-node-commonjs migration:show -d src/database/datasource/app.datasource.ts",
-        "cwd": "packages/marketplace-server"
+        "cwd": "packages/healthcare-server"
       }
     },
     "migration:schema:sync": {
       "executor": "nx:run-commands",
       "options": {
         "command": "typeorm-ts-node-commonjs schema:sync -d src/database/datasource/app.datasource.ts",
-        "cwd": "packages/marketplace-server"
+        "cwd": "packages/healthcare-server"
       }
     }
   }
