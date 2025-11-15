@@ -1,4 +1,4 @@
-# @mcp-marketplace/server
+# @healthcare/server
 
 A robust NestJS backend application providing GraphQL APIs, database management, job processing, and third-party integrations. Built with modern Node.js patterns and production-ready features.
 

@@ -1,44 +1,53 @@
 const plugin = require('tailwindcss/plugin');
 
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ['class'],
+
   theme: {
     extend: {
       colors: {
         background: 'var(--color-background)',
         foreground: 'var(--color-foreground)',
+
         card: {
           DEFAULT: 'var(--color-card)',
           foreground: 'var(--color-card-foreground)',
         },
+
         popover: {
           DEFAULT: 'var(--color-popover)',
           foreground: 'var(--color-popover-foreground)',
         },
+
         primary: {
           DEFAULT: 'var(--color-primary)',
           foreground: 'var(--color-primary-foreground)',
         },
+
         secondary: {
           DEFAULT: 'var(--color-secondary)',
           foreground: 'var(--color-secondary-foreground)',
         },
+
         muted: {
           DEFAULT: 'var(--color-muted)',
           foreground: 'var(--color-muted-foreground)',
         },
+
         accent: {
           DEFAULT: 'var(--color-accent)',
           foreground: 'var(--color-accent-foreground)',
         },
+
         destructive: {
           DEFAULT: 'var(--color-destructive)',
           foreground: 'var(--color-destructive-foreground)',
         },
+
         border: 'var(--color-border)',
         input: 'var(--color-input)',
         ring: 'var(--color-ring)',
+
         chart: {
           1: 'var(--color-chart-1)',
           2: 'var(--color-chart-2)',
@@ -46,6 +55,7 @@ module.exports = {
           4: 'var(--color-chart-4)',
           5: 'var(--color-chart-5)',
         },
+
         sidebar: {
           DEFAULT: 'var(--color-sidebar)',
           foreground: 'var(--color-sidebar-foreground)',
@@ -57,14 +67,17 @@ module.exports = {
           ring: 'var(--color-sidebar-ring)',
         },
       },
+
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui'],
         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
+
       spacing: {
         18: '4.5rem',
         88: '22rem',
       },
+
       borderRadius: {
         sm: 'var(--radius-sm)',
         md: 'var(--radius-md)',
@@ -72,6 +85,7 @@ module.exports = {
         xl: 'var(--radius-xl)',
         '4xl': '2rem',
       },
+
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'fade-out': 'fadeOut 0.5s ease-in-out',
@@ -88,6 +102,7 @@ module.exports = {
         'collapsible-down': 'collapsible-down 0.2s ease-out',
         'collapsible-up': 'collapsible-up 0.2s ease-out',
       },
+
       keyframes: {
         fadeIn: {
           '0%': { opacity: '0' },
@@ -151,8 +166,10 @@ module.exports = {
       },
     },
   },
+
   plugins: [
     require('tailwindcss-animate'),
+
     plugin(function ({ addBase, addVariant }) {
       addVariant('dark', '&:is(.dark *)');
 
@@ -182,7 +199,9 @@ module.exports = {
           '--chart-3': 'oklch(0.398 0.07 227.392)',
           '--chart-4': 'oklch(0.828 0.189 84.429)',
           '--chart-5': 'oklch(0.769 0.188 70.08)',
+
           '--radius': '0.625rem',
+
           '--sidebar': 'oklch(0.985 0 0)',
           '--sidebar-foreground': 'oklch(0.145 0 0)',
           '--sidebar-primary': 'oklch(0.205 0 0)',
@@ -216,10 +235,12 @@ module.exports = {
           '--color-chart-3': 'var(--chart-3)',
           '--color-chart-4': 'var(--chart-4)',
           '--color-chart-5': 'var(--chart-5)',
+
           '--radius-sm': 'calc(var(--radius) - 4px)',
           '--radius-md': 'calc(var(--radius) - 2px)',
           '--radius-lg': 'var(--radius)',
           '--radius-xl': 'calc(var(--radius) + 4px)',
+
           '--color-sidebar': 'var(--sidebar)',
           '--color-sidebar-foreground': 'var(--sidebar-foreground)',
           '--color-sidebar-primary': 'var(--sidebar-primary)',
@@ -231,6 +252,7 @@ module.exports = {
           '--color-sidebar-border': 'var(--sidebar-border)',
           '--color-sidebar-ring': 'var(--sidebar-ring)',
         },
+
         '.dark': {
           '--background': 'oklch(0.145 0 0)',
           '--foreground': 'oklch(0.985 0 0)',
@@ -256,6 +278,7 @@ module.exports = {
           '--chart-3': 'oklch(0.769 0.188 70.08)',
           '--chart-4': 'oklch(0.627 0.265 303.9)',
           '--chart-5': 'oklch(0.645 0.246 16.439)',
+
           '--sidebar': 'oklch(0.205 0 0)',
           '--sidebar-foreground': 'oklch(0.985 0 0)',
           '--sidebar-primary': 'oklch(0.488 0.243 264.376)',

@@ -1,4 +1,4 @@
-# @mcp-marketplace/shared
+# @healthcare/shared
 
 A TypeScript utility library providing shared functionality, types, constants, and helper functions used across all packages in the monorepo. This package ensures consistency and reduces code duplication between frontend, backend, and UI components.
 
@@ -464,12 +464,7 @@ export enum FileType {
 
 ```typescript
 // React component example
-import {
-  isNonEmpty,
-  formatDate,
-  User,
-  ApiResponse,
-} from '@mcp-marketplace/shared';
+import { isNonEmpty, formatDate, User, ApiResponse } from '@healthcare/shared';
 
 interface UserListProps {
   users: User[];
@@ -501,7 +496,7 @@ import {
   generateId,
   User,
   CreateResourceRequest,
-} from '@mcp-marketplace/shared';
+} from '@healthcare/shared';
 
 @Injectable()
 export class UserService {
@@ -533,7 +528,7 @@ export class UserService {
 
 ```typescript
 // Form validation with shared utilities
-import { isNonEmpty, isValidEmail } from '@mcp-marketplace/shared';
+import { isNonEmpty, isValidEmail } from '@healthcare/shared';
 
 interface FormData {
   firstName: string;
@@ -568,7 +563,7 @@ function validateForm(data: FormData): string[] {
 
 ```typescript
 // Example test file
-import { isNonEmpty, isValidEmail, capitalize } from '@mcp-marketplace/shared';
+import { isNonEmpty, isValidEmail, capitalize } from '@healthcare/shared';
 
 describe('String Utilities', () => {
   describe('isNonEmpty', () => {
@@ -643,7 +638,7 @@ packages/healthcare-shared/dist/
 
 ```json
 {
-  "name": "@mcp-marketplace/shared",
+  "name": "@healthcare/shared",
   "version": "1.0.0",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",

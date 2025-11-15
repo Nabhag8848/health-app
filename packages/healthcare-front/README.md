@@ -1,4 +1,4 @@
-# @mcp-marketplace/front
+# @healthcare/front
 
 A modern React frontend application built with the latest React 19, Vite, and TypeScript. This application provides a beautiful, responsive user interface for the marketplace platform with full GraphQL integration and modern development tooling.
 
@@ -19,7 +19,7 @@ A modern React frontend application built with the latest React 19, Vite, and Ty
 
 ### UI & Styling
 
-- **@mcp-marketplace/ui**: Custom component library
+- **@healthcare/ui**: Custom component library
 - **Tailwind CSS**: Utility-first CSS framework
 - **shadcn/ui**: Modern component primitives
 - **React Helmet Async**: Document head management
@@ -332,7 +332,7 @@ function App() {
 ### Loading States
 
 ```tsx
-import { Skeleton } from '@mcp-marketplace/ui';
+import { Skeleton } from '@healthcare/ui';
 
 function DataComponent() {
   const { data, loading } = useQuery(GET_DATA);
@@ -489,7 +489,7 @@ export function NewRoutePage() {
 
 ```tsx
 // Extend the UI library theme
-import { ThemeProvider } from '@mcp-marketplace/ui';
+import { ThemeProvider } from '@healthcare/ui';
 
 const customTheme = {
   colors: {

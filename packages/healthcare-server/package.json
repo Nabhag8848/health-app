@@ -1,8 +1,8 @@
 {
-  "name": "@mcp-marketplace/server",
+  "name": "@healthcare/server",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@mcp-marketplace/shared": "*"
+    "@healthcare/shared": "*"
   }
 }

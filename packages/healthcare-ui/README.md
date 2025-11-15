@@ -1,4 +1,4 @@
-# @mcp-marketplace/ui
+# @healthcare/ui
 
 A modern, accessible UI component library built with [shadcn/ui](https://ui.shadcn.com), [Tailwind CSS](https://tailwindcss.com), and TypeScript. This library provides a comprehensive set of reusable components for building consistent user interfaces across the monorepo.
 
@@ -27,9 +27,9 @@ A modern, accessible UI component library built with [shadcn/ui](https://ui.shad
 This library is designed to work within the Nx monorepo. If you're using it externally:
 
 ```bash
-npm install @mcp-marketplace/ui
+npm install @healthcare/ui
 # or
-yarn add @mcp-marketplace/ui
+yarn add @healthcare/ui
 ```
 
 ### Configuration
@@ -39,7 +39,7 @@ The library uses a shared Tailwind configuration. Ensure your consuming applicat
 ```js
 // tailwind.config.js
 module.exports = {
-  presets: [require('@mcp-marketplace/ui/tailwind.preset.js')],
+  presets: [require('@healthcare/ui/tailwind.preset.js')],
   // ... your config
 };
 ```
@@ -50,7 +50,7 @@ Import the base styles in your application:
 
 ```css
 /* In your main CSS file */
-@import '@mcp-marketplace/ui/styles.css';
+@import '@healthcare/ui/styles.css';
 ```
 
 ## 🧩 Available Components
@@ -100,7 +100,7 @@ Import the base styles in your application:
 ### Basic Component Usage
 
 ```tsx
-import { Button, Card, Input, Label } from '@mcp-marketplace/ui';
+import { Button, Card, Input, Label } from '@healthcare/ui';
 
 function LoginForm() {
   return (
@@ -136,7 +136,7 @@ function LoginForm() {
 ### Theme Customization
 
 ```tsx
-import { Button } from '@mcp-marketplace/ui';
+import { Button } from '@healthcare/ui';
 
 function ThemedButton() {
   return (
@@ -154,7 +154,7 @@ function ThemedButton() {
 ### Complex Layout Example
 
 ```tsx
-import { Card, Tabs, Badge, Button, Separator } from '@mcp-marketplace/ui';
+import { Card, Tabs, Badge, Button, Separator } from '@healthcare/ui';
 
 function Dashboard() {
   return (
@@ -221,8 +221,8 @@ The design system uses CSS variables for dynamic theming:
 Extend existing components with custom variants:
 
 ```tsx
-import { cn } from '@mcp-marketplace/ui/lib/utils';
-import { Button } from '@mcp-marketplace/ui';
+import { cn } from '@healthcare/ui/lib/utils';
+import { Button } from '@healthcare/ui';
 
 const CustomButton = ({ className, ...props }) => {
   return (
@@ -312,7 +312,7 @@ nx build healthcare-ui --watch
 
 ```tsx
 // Import components directly
-import { Button, Card } from '@mcp-marketplace/ui';
+import { Button, Card } from '@healthcare/ui';
 
 // Use in React components
 function MyPage() {
@@ -329,8 +329,8 @@ function MyPage() {
 ### With Shared Utilities (`healthcare-shared`)
 
 ```tsx
-import { Button } from '@mcp-marketplace/ui';
-import { validateEmail } from '@mcp-marketplace/shared';
+import { Button } from '@healthcare/ui';
+import { validateEmail } from '@healthcare/shared';
 
 function EmailForm() {
   const handleSubmit = (email: string) => {
