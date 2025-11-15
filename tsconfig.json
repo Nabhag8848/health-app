@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/marketplace-server"
+    },
+    {
+      "path": "./packages/marketplace-front"
+    },
+    {
+      "path": "./packages/marketplace-ui"
+    },
+    {
+      "path": "./packages/marketplace-shared"
+    }
+  ]
+}
