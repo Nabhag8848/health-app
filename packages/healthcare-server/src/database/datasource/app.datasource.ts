@@ -17,9 +17,8 @@ export const createTypeOrmOptions = (): TypeOrmModuleOptions => ({
   migrations: [join(__dirname, '..', 'migrations', '**', '*.{ts,js}')],
   migrationsTableName: '__migrations__',
   migrationsRun: false,
-
   extra: {
-    options: '-c search_path=public,core,discovery_source',
+    options: '-c search_path=public,core',
   },
 
   synchronize: false,
