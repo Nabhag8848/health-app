@@ -6,7 +6,7 @@ import { FindNearbyClinicDto } from './dto/find-nearby-clinic.dto';
 import { CreateClinicDto } from './dto/create-clinic.dto';
 
 @Injectable()
-export class ClinicSerive {
+export class ClinicService {
   constructor(
     @InjectRepository(Clinic)
     private readonly clinicRepository: Repository<Clinic>

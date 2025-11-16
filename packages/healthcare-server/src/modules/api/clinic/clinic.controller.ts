@@ -1,11 +1,11 @@
-import { ClinicSerive } from './clinic.service';
+import { ClinicService } from './clinic.service';
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { CreateClinicDto } from './dto/create-clinic.dto';
 import { FindNearbyClinicDto } from './dto/find-nearby-clinic.dto';
 
 @Controller('clinic')
 export class ClinicController {
-  constructor(private readonly clinicService: ClinicSerive) {}
+  constructor(private readonly clinicService: ClinicService) {}
 
   @Post()
   async createOneClinic(@Body() createClinicDto: CreateClinicDto) {

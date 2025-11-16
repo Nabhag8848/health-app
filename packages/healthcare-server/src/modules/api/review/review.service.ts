@@ -4,7 +4,7 @@ import { Review } from '@/database/entities';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class ReviewSerive {
+export class ReviewService {
   constructor(
     @InjectRepository(Review)
     private readonly reviewRepoistory: Repository<Review>
