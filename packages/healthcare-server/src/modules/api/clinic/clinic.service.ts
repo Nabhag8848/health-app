@@ -27,9 +27,9 @@ export class ClinicSerive {
   async getWithinRange({ lng, lat, radius }: FindNearbyClinicDto) {
     return this.clinicRepository
       .createQueryBuilder('clinic')
-      .select()
+      .leftJoinAndSelect('clinic.doctors', 'doctor')
       .where(
-        'ST_DWithin(clinic.coordinates, ST_SetSRID(ST_MakePoint(:lon, :lat), 4326), :range)',
+        'ST_DWithin(clinic.coordinates, ST_SetSRID(ST_MakePoint(:lng, :lat), 4326), :range)',
         { lng, lat, range: radius * 1000 }
       )
       .getMany();
