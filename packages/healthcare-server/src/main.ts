@@ -1,3 +1,14 @@
+import { register } from 'tsconfig-paths';
+import * as path from 'path';
+
+const baseUrl = path.resolve(__dirname, '..');
+register({
+  baseUrl,
+  paths: {
+    '@/*': ['src/*'],
+  },
+});
+
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';

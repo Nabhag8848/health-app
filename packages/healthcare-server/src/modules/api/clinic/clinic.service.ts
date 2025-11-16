@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Clinic } from 'src/database/entities';
+import { Clinic } from '@/database/entities';
 import { Point, Repository } from 'typeorm';
 import { FindNearbyClinicDto } from './dto/find-nearby-clinic.dto';
 import { CreateClinicDto } from './dto/create-clinic.dto';
