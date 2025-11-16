@@ -66,25 +66,23 @@ echo ""
 
 # Create doctors for Clinic 1 (San Francisco)
 echo "Creating doctors for San Francisco Medical Center..."
-DOCTOR_1_RESPONSE=$(curl -s -X POST "http://localhost:3000/v1/doctor" \
+DOCTOR_1_RESPONSE=$(curl -s -X POST "${BASE_URL}/${CLINIC_1_ID}/doctor" \
   -H "Content-Type: application/json" \
-  -d "{
-    \"name\": \"Dr. John Smith\",
-    \"yoe\": 15,
-    \"clinicId\": \"$CLINIC_1_ID\"
-  }")
+  -d '{
+    "name": "Dr. John Smith",
+    "yoe": 15
+  }')
 
 echo "$DOCTOR_1_RESPONSE" | jq '.'
 DOCTOR_1_ID=$(echo "$DOCTOR_1_RESPONSE" | jq -r '.id')
 echo "$DOCTOR_1_ID" > /tmp/doctor_1_id.txt
 
-DOCTOR_2_RESPONSE=$(curl -s -X POST "http://localhost:3000/v1/doctor" \
+DOCTOR_2_RESPONSE=$(curl -s -X POST "${BASE_URL}/${CLINIC_1_ID}/doctor" \
   -H "Content-Type: application/json" \
-  -d "{
-    \"name\": \"Dr. Sarah Johnson\",
-    \"yoe\": 10,
-    \"clinicId\": \"$CLINIC_1_ID\"
-  }")
+  -d '{
+    "name": "Dr. Sarah Johnson",
+    "yoe": 10
+  }')
 
 echo "$DOCTOR_2_RESPONSE" | jq '.'
 DOCTOR_2_ID=$(echo "$DOCTOR_2_RESPONSE" | jq -r '.id')
@@ -96,25 +94,23 @@ echo ""
 
 # Create doctors for Clinic 2 (Oakland)
 echo "Creating doctors for Oakland Health Clinic..."
-DOCTOR_3_RESPONSE=$(curl -s -X POST "http://localhost:3000/v1/doctor" \
+DOCTOR_3_RESPONSE=$(curl -s -X POST "${BASE_URL}/${CLINIC_2_ID}/doctor" \
   -H "Content-Type: application/json" \
-  -d "{
-    \"name\": \"Dr. Michael Brown\",
-    \"yoe\": 20,
-    \"clinicId\": \"$CLINIC_2_ID\"
-  }")
+  -d '{
+    "name": "Dr. Michael Brown",
+    "yoe": 20
+  }')
 
 echo "$DOCTOR_3_RESPONSE" | jq '.'
 DOCTOR_3_ID=$(echo "$DOCTOR_3_RESPONSE" | jq -r '.id')
 echo "$DOCTOR_3_ID" > /tmp/doctor_3_id.txt
 
-DOCTOR_4_RESPONSE=$(curl -s -X POST "http://localhost:3000/v1/doctor" \
+DOCTOR_4_RESPONSE=$(curl -s -X POST "${BASE_URL}/${CLINIC_2_ID}/doctor" \
   -H "Content-Type: application/json" \
-  -d "{
-    \"name\": \"Dr. Emily Davis\",
-    \"yoe\": 8,
-    \"clinicId\": \"$CLINIC_2_ID\"
-  }")
+  -d '{
+    "name": "Dr. Emily Davis",
+    "yoe": 8
+  }')
 
 echo "$DOCTOR_4_RESPONSE" | jq '.'
 DOCTOR_4_ID=$(echo "$DOCTOR_4_RESPONSE" | jq -r '.id')
@@ -126,25 +122,23 @@ echo ""
 
 # Create doctors for Clinic 3 (San Jose)
 echo "Creating doctors for San Jose Community Hospital..."
-DOCTOR_5_RESPONSE=$(curl -s -X POST "http://localhost:3000/v1/doctor" \
+DOCTOR_5_RESPONSE=$(curl -s -X POST "${BASE_URL}/${CLINIC_3_ID}/doctor" \
   -H "Content-Type: application/json" \
-  -d "{
-    \"name\": \"Dr. Robert Wilson\",
-    \"yoe\": 25,
-    \"clinicId\": \"$CLINIC_3_ID\"
-  }")
+  -d '{
+    "name": "Dr. Robert Wilson",
+    "yoe": 25
+  }')
 
 echo "$DOCTOR_5_RESPONSE" | jq '.'
 DOCTOR_5_ID=$(echo "$DOCTOR_5_RESPONSE" | jq -r '.id')
 echo "$DOCTOR_5_ID" > /tmp/doctor_5_id.txt
 
-DOCTOR_6_RESPONSE=$(curl -s -X POST "http://localhost:3000/v1/doctor" \
+DOCTOR_6_RESPONSE=$(curl -s -X POST "${BASE_URL}/${CLINIC_3_ID}/doctor" \
   -H "Content-Type: application/json" \
-  -d "{
-    \"name\": \"Dr. Lisa Anderson\",
-    \"yoe\": 12,
-    \"clinicId\": \"$CLINIC_3_ID\"
-  }")
+  -d '{
+    "name": "Dr. Lisa Anderson",
+    "yoe": 12
+  }')
 
 echo "$DOCTOR_6_RESPONSE" | jq '.'
 DOCTOR_6_ID=$(echo "$DOCTOR_6_RESPONSE" | jq -r '.id')

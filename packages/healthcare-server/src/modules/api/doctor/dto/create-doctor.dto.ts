@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { MaxLength } from 'class-validator';
 import { Min } from 'class-validator';
 import { Max } from 'class-validator';
@@ -14,9 +14,4 @@ export class CreateDoctorDto {
   @Min(0)
   @Max(100)
   yoe: number;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsUUID('4')
-  clinicId: string;
 }

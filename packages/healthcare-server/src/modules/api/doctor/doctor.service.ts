@@ -13,7 +13,7 @@ export class DoctorService {
     private readonly clinicRepository: Repository<Clinic>
   ) {}
 
-  async createOneDoctor({ name, yoe, clinicId }: CreateDoctorDto) {
+  async createOneDoctor({ name, yoe }: CreateDoctorDto, clinicId: string) {
     const clinic = await this.clinicRepository.exists({
       where: { id: clinicId },
     });
