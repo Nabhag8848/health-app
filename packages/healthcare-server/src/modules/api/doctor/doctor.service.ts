@@ -13,13 +13,15 @@ export class DoctorService {
     private readonly clinicRepository: Repository<Clinic>
   ) {}
 
-  async createOneDoctor({ name, yoe }: CreateDoctorDto, clinicId: string) {
-    const clinic = await this.clinicRepository.exists({
-      where: { id: clinicId },
-    });
+  async createOneDoctor({ name, yoe }: CreateDoctorDto, clinicId?: string) {
+    if (clinicId) {
+      const clinic = await this.clinicRepository.exists({
+        where: { id: clinicId },
+      });
 
-    if (!clinic) {
-      throw new NotFoundException('Clinic not found');
+      if (!clinic) {
+        throw new NotFoundException('Clinic not found');
+      }
     }
 
     return this.doctorRepository.save({
