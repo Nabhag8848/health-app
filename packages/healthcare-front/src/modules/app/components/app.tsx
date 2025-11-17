@@ -1,7 +1,7 @@
-import { Button } from '@/ui/components/ui/button';
+import { AppRouter } from './app-router';
 
 export function App() {
-  return <Button>Hello world</Button>;
+  return <AppRouter />;
 }
 
 export default App;

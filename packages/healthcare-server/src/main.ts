@@ -20,6 +20,15 @@ async function bootstrap() {
 
   const config = app.get(ConfigService);
 
+  // Enable CORS
+  const corsOrigin = config.get<string>('CORS_ORIGIN', 'http://localhost:3001');
+  app.enableCors({
+    origin: corsOrigin.split(',').map((origin) => origin.trim()),
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
+
   const globalPrefix = 'v1';
   app.setGlobalPrefix(globalPrefix);
 
