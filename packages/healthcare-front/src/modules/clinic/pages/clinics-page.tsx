@@ -11,6 +11,7 @@ export function ClinicsPage() {
     loading: geoLoading,
   } = useGeolocation({
     enableHighAccuracy: true,
+    maximumAge: 0,
   });
 
   const {
