@@ -1,4 +1,12 @@
-import { IsNumber, IsPositive, Max, Min } from 'class-validator';
+import {
+  IsNumber,
+  IsPositive,
+  Max,
+  Min,
+  IsOptional,
+  IsString,
+  IsInt,
+} from 'class-validator';
 import { Transform } from 'class-transformer';
 export class FindNearbyClinicDto {
   @IsNumber()
@@ -17,4 +25,14 @@ export class FindNearbyClinicDto {
   @Max(90)
   @Transform((obj) => parseFloat(obj.value))
   lat: number;
+
+  @IsOptional()
+  @IsString()
+  cursor?: string;
+
+  @IsOptional()
+  @IsInt()
+  @IsPositive()
+  @Max(100)
+  limit = 10;
 }

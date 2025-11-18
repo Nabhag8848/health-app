@@ -2,8 +2,8 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["node"],
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
