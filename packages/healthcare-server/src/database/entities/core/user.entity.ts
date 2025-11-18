@@ -1,17 +1,9 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
+import { AbstractBaseEntity } from '../base.entity';
 import { Review } from './review.entity';
 
 @Entity({ schema: 'core', name: 'user' })
-export class User extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class User extends AbstractBaseEntity {
   @Column({
     length: 64,
     nullable: false,

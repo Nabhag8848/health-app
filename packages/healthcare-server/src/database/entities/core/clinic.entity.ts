@@ -1,18 +1,9 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  OneToMany,
-  type Point,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, type Point } from 'typeorm';
+import { AbstractBaseEntity } from '../base.entity';
 import { Doctor } from './doctor.entity';
 
 @Entity({ schema: 'core', name: 'clinic' })
-export class Clinic extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class Clinic extends AbstractBaseEntity {
   @Column({
     length: 64,
     nullable: false,

@@ -1,4 +1,3 @@
 export enum PageTitle {
-  HOME = 'Home',
-  ABOUT = 'About me',
+  ROOT = 'Health App',
 }
