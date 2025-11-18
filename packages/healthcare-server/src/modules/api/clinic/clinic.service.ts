@@ -5,6 +5,7 @@ import { Point, Repository } from 'typeorm';
 import { FindNearbyClinicDto } from './dto/find-nearby-clinic.dto';
 import { CreateClinicDto } from './dto/create-clinic.dto';
 import encodeCursor from '@/modules/api/common/utils/encode-cursor.util';
+import { decodeCursor } from '@/modules/api/common/utils/decode-cursor.util';
 
 @Injectable()
 export class ClinicService {
@@ -38,9 +39,7 @@ export class ClinicService {
 
     if (cursor) {
       try {
-        cursorData = JSON.parse(
-          Buffer.from(cursor, 'base64').toString('utf-8')
-        );
+        cursorData = decodeCursor(cursor);
       } catch {
         cursorData = null;
         throw new BadRequestException('Invalid cursor');
