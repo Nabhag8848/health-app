@@ -15,5 +15,6 @@ export async function fetchNearbyClinics(
   if (!response.ok) {
     throw new Error(`${response.statusText}`);
   }
-  return response.json();
+  const data = await response.json();
+  return data?.data;
 }
