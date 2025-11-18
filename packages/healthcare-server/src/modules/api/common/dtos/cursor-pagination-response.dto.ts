@@ -1,16 +1,5 @@
 import { Expose, Type } from 'class-transformer';
 
-export class CursorPaginationResponseDto<T = any> {
-  @Expose()
-  cursor: string | null;
-
-  @Expose()
-  nextPage: string | null;
-
-  @Expose()
-  data: T[];
-}
-
 export function createCursorPaginationResponseDto<
   T extends new (...args: any[]) => any
 >(dataType: T) {
