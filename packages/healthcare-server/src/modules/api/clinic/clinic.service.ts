@@ -78,19 +78,19 @@ export class ClinicService {
       distance: raw[index]?.distance,
     }));
 
+    const clinicsFirstItem = clinicsData[0];
+    const clinicsLastItem = clinicsData[clinicsData.length - 1];
+
     // Generate current page cursor (first item of current page)
     const currentCursor =
       clinicsData.length > 0
-        ? encodeCursor(clinicsData[0].distance, clinicsData[0].id)
+        ? encodeCursor(clinicsFirstItem.distance, clinicsFirstItem.id)
         : null;
 
     // Generate next page cursor (last item of current page, if next page exists)
     const nextPageCursor =
       hasNextPage && clinicsData.length > 0
-        ? encodeCursor(
-            clinicsData[clinicsData.length - 1].distance,
-            clinicsData[clinicsData.length - 1].id
-          )
+        ? encodeCursor(clinicsLastItem.distance, clinicsLastItem.id)
         : null;
 
     return {
