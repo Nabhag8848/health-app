@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Expose, Type } from 'class-transformer';
 
 type ClassConstructor<T = any> = new (...args: any[]) => T;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { map } from 'rxjs';
