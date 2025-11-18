@@ -55,7 +55,7 @@ export class ClinicService {
         { lng, lat, range: radius * 1000 }
       )
       .orderBy('distance', 'ASC')
-      .limit(limit + 1);
+      .take(limit + 1);
 
     if (cursorData) {
       const { distance: cursorDistance, id: cursorId } = cursorData;
