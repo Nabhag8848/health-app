@@ -1,17 +1,16 @@
-# Monorepo Template
+# Health App
 
-A production-ready Nx monorepo template for building modern full-stack applications with React, NestJS, GraphQL, TypeORM and modern development tools.
+A production-ready Nx monorepo for building a healthcare application with React, NestJS, REST APIs, TypeORM, and modern development tools. This application helps users find nearby clinics and doctors.
 
 ## 🏗️ Architecture Overview
 
 This monorepo follows a modular architecture with clear separation of concerns:
 
 ```
-monorepo-template/
+healthapp/
 ├── packages/
 │   ├── healthcare-front/      # React frontend application
-│   ├── healthcare-server/     # NestJS backend application
-│   ├── healthcare-ui/         # Shared UI component library
+│   ├── healthcare-server/     # NestJS backend REST API
 │   └── healthcare-shared/     # Shared utilities and types
 ├── docker-compose.yml          # Development infrastructure
 ├── Dockerfile                  # Production container
@@ -24,43 +23,36 @@ monorepo-template/
 ### 🎨 Frontend Application (`healthcare-front`)
 
 - **Type**: Application (`type:app`, `scope:front`)
-- **Framework**: React with Vite
+- **Framework**: React 19 with Vite
 - **Features**:
-  - GraphQL integration with code generation
+  - REST API integration with TanStack React Query
   - Modern React Router setup
   - Responsive design with Tailwind CSS
   - Component-driven architecture
+  - Infinite scroll for clinic listings
+  - Geolocation-based clinic search
 
 ### 🔧 Backend Application (`healthcare-server`)
 
 - **Type**: Application (`type:app`, `scope:server`)
-- **Framework**: NestJS with GraphQL
+- **Framework**: NestJS with REST APIs
 - **Features**:
   - Modular architecture with feature modules
-  - Database integration with TypeORM
-  - Redis-backed job queues
-  - GitHub API integration
+  - Database integration with TypeORM and PostgreSQL
+  - PostGIS for geospatial queries
+  - Redis-backed job queues (configured, ready for use)
   - Health monitoring endpoints
   - Database migrations system
-
-### 🎨 UI Component Library (`healthcare-ui`)
-
-- **Type**: Library (`type:lib`, `scope:ui`)
-- **Framework**: shadcn/ui + Tailwind CSS
-- **Features**:
-  - Reusable component library
-  - Custom design system
-  - Dark/light theme support
-  - Accessibility-first components
+  - Cursor-based pagination
+  - Core entities: Clinic, Doctor, User, Review
 
 ### 📚 Shared Library (`healthcare-shared`)
 
 - **Type**: Library (`type:lib`, `scope:shared`)
 - **Purpose**: Cross-package utilities and types
 - **Features**:
-  - Type-safe utility functions
-  - Shared constants and enums
-  - Common validation logic
+  - Utility functions (`isNonEmpty`, `isNull`)
+  - Shared type definitions
 
 ## 🎯 Available Targets
 
@@ -89,8 +81,8 @@ nx build healthcare-front
 # Preview production build
 nx preview healthcare-front
 
-# Generate GraphQL types
-nx graphql:codegen healthcare-front
+# Serve static files
+nx serve-static healthcare-front
 ```
 
 ### Backend-Specific Targets (`healthcare-server`)
@@ -99,8 +91,8 @@ nx graphql:codegen healthcare-front
 # Start development server
 nx start healthcare-server
 
-# Start production server
-nx start:production healthcare-server
+# Build for production
+nx build healthcare-server
 
 # Database migrations
 nx migration:deploy healthcare-server
@@ -109,14 +101,6 @@ nx migration:generate healthcare-server --name=CreateUsers
 nx migration:create healthcare-server --name=AddIndexes
 nx migration:show healthcare-server
 nx migration:schema:sync healthcare-server
-```
-
-### UI Library Targets (`healthcare-ui`)
-
-```bash
-# Add shadcn/ui components
-nx shadcn:component:add healthcare-ui --component=button
-nx shadcn:component:add healthcare-ui --component=dialog
 ```
 
 ### Multi-Package Operations
@@ -183,9 +167,7 @@ REDIS_DB=0
 # Server
 SERVER_PORT=3000
 SERVER_URL=http://localhost:3000
-
-# GitHub Integration (optional)
-GITHUB_PERSONAL_TOKEN=your_github_token
+CORS_ORIGIN=http://localhost:4173
 
 # Environment
 NODE_ENV=development
@@ -197,23 +179,22 @@ NODE_ENV=development
 
 The workspace enforces strict module boundaries:
 
-- **Frontend** (`scope:front`): Can depend on `ui`, `shared`
+- **Frontend** (`scope:front`): Can depend on `shared`
 - **Backend** (`scope:server`): Can depend on `shared` only
-- **UI Library** (`scope:ui`): Can depend on `shared` only
 - **Shared** (`scope:shared`): No external dependencies
 
 ### Database Schema Organization
 
-- **`core`**: Application core entities
-- **`discovery_source`**: Data discovery and integration
+- **`core`**: Application core entities (Clinic, Doctor, User, Review)
 - **`public`**: Default PostgreSQL schema
 
-### GraphQL Architecture
+### REST API Architecture
 
-- Code-first approach with NestJS
-- Automatic schema generation
-- Type-safe client code generation
-- Apollo Client with caching
+- RESTful endpoints with NestJS controllers
+- Type-safe DTOs with class-validator
+- Cursor-based pagination for efficient data loading
+- PostGIS for geospatial queries (finding nearby clinics)
+- Serialization interceptors for consistent responses
 
 ## 🐳 Docker & Deployment
 
@@ -293,8 +274,6 @@ nx g @nx/react:component MyComponent --project=healthcare-front
 # Generate NestJS module
 nx g @nx/nest:module my-feature --project=healthcare-server
 
-# Add shadcn/ui component
-nx shadcn:component:add healthcare-ui --component=card
 ```
 
 ### Database Migrations
@@ -323,7 +302,7 @@ nx migration:deploy healthcare-server
 
 - **Database**: Replace TypeORM configuration in `packages/healthcare-server/src/database/`
 - **Styling**: Modify Tailwind configuration in `tailwind.preset.js`
-- **UI Components**: Customize shadcn/ui in `packages/healthcare-ui/components.json`
+- **UI Components**: Add shadcn/ui components directly in `packages/healthcare-front/src/modules/ui/`
 - **Build Tool**: Update Vite configuration for frontend changes
 
 ## 🚀 Production Considerations

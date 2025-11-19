@@ -34,5 +34,6 @@ export class FindNearbyClinicDto {
   @IsInt()
   @IsPositive()
   @Max(100)
+  @Transform((obj) => parseInt(obj?.value || '10'))
   limit = 10;
 }

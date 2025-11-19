@@ -16,6 +16,7 @@ export async function fetchNearbyClinics(
   if (cursor) {
     url.searchParams.set('cursor', cursor);
   }
+  url.searchParams.set('limit', '9');
 
   const response = await fetch(url.toString());
   if (!response.ok) {

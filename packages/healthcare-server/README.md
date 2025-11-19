@@ -1,6 +1,6 @@
 # @healthcare/server
 
-A robust NestJS backend application providing GraphQL APIs, database management, job processing, and third-party integrations. Built with modern Node.js patterns and production-ready features.
+A robust NestJS backend application providing REST APIs for a healthcare application. Built with modern Node.js patterns and production-ready features for managing clinics, doctors, users, and reviews.
 
 ## 🚀 Technology Stack
 
@@ -10,30 +10,19 @@ A robust NestJS backend application providing GraphQL APIs, database management,
 - **TypeScript 5.8.2**: Type-safe server development
 - **Node.js 20**: Latest LTS runtime environment
 
-### GraphQL & API
-
-- **Apollo Server 4.12.2**: Production-ready GraphQL server
-- **NestJS GraphQL**: Code-first GraphQL schema generation
-- **GraphiQL**: Interactive GraphQL playground
-
 ### Database & ORM
 
 - **TypeORM 0.3.25**: Advanced ORM with migrations
 - **PostgreSQL 15**: Primary relational database
+- **PostGIS**: Geospatial extension for location-based queries
 - **Database Migrations**: Version-controlled schema changes
 - **Custom Schemas**: Multi-tenant database organization
 
 ### Caching & Queues
 
 - **Redis**: High-performance caching and session storage
-- **BullMQ**: Robust job queue processing
+- **BullMQ**: Robust job queue processing (configured, ready for use)
 - **IORedis**: Advanced Redis client with clustering support
-
-### Third-Party Integrations
-
-- **GitHub GraphQL API**: Repository and user data integration
-- **Octokit**: Official GitHub API client
-- **RESTful APIs**: External service integrations
 
 ### Development & Production
 
@@ -50,20 +39,23 @@ packages/healthcare-server/
 │   ├── database/
 │   │   ├── datasource/         # Database connection configuration
 │   │   ├── entities/           # TypeORM entity definitions
+│   │   │   ├── base.entity.ts  # Base entity with common fields
 │   │   │   └── core/          # Core business entities
+│   │   │       ├── clinic.entity.ts
+│   │   │       ├── doctor.entity.ts
+│   │   │       ├── user.entity.ts
+│   │   │       └── review.entity.ts
 │   │   ├── migrations/         # Database migration files
 │   │   └── redis/             # Redis configuration and services
 │   ├── modules/
-│   │   ├── app/               # Application core module
-│   │   ├── example/           # Example GraphQL resolvers
-│   │   │   ├── models/        # GraphQL models
-│   │   │   └── resolvers/     # GraphQL resolvers
-│   │   ├── graphql/           # GraphQL module configuration
+│   │   ├── api/               # REST API modules
+│   │   │   ├── clinic/        # Clinic endpoints
+│   │   │   ├── doctor/        # Doctor endpoints
+│   │   │   ├── user/          # User endpoints
+│   │   │   ├── review/        # Review endpoints
+│   │   │   └── common/        # Shared DTOs and utilities
 │   │   ├── health/            # Health check endpoints
-│   │   ├── integration/       # Third-party integrations
-│   │   │   └── github/        # GitHub API integration
 │   │   └── queue/             # Background job processing
-│   ├── assets/                # Static server assets
 │   ├── app.module.ts          # Root application module
 │   └── main.ts                # Application bootstrap
 ├── project.json               # Nx project configuration
@@ -80,14 +72,11 @@ packages/healthcare-server/
 # Start development server
 nx start healthcare-server
 
-# Start production server
-nx start:production healthcare-server
-
 # Build for production
 nx build healthcare-server
 
-# Build with optimizations
-nx build:production healthcare-server
+# Type checking
+nx typecheck healthcare-server
 ```
 
 ### Database Operations
@@ -123,15 +112,6 @@ nx lint healthcare-server
 
 # Fix linting issues
 nx lint healthcare-server --fix
-
-# Run tests
-nx test healthcare-server
-
-# Run tests with coverage
-nx test healthcare-server --coverage
-
-# Run tests in watch mode
-nx test healthcare-server --watch
 ```
 
 ## 🛠️ Development Setup
@@ -141,7 +121,7 @@ nx test healthcare-server --watch
 - Node.js 20+ (specified in root `.nvmrc`)
 - Yarn 4.4.0+
 - Docker & Docker Compose
-- PostgreSQL 15+
+- PostgreSQL 15+ with PostGIS extension
 - Redis 6+
 
 ### Quick Start
@@ -159,7 +139,7 @@ nx migration:deploy healthcare-server
 # Start development server
 nx start healthcare-server
 
-# GraphQL Playground available at http://localhost:3000/graphql
+# API available at http://localhost:3000/v1
 ```
 
 ### Environment Configuration
@@ -170,6 +150,7 @@ Create `.env` file in the root directory:
 # Server Configuration
 SERVER_PORT=3000
 NODE_ENV=development
+CORS_ORIGIN=http://localhost:4173
 
 # Database Configuration
 POSTGRES_HOST=localhost
@@ -184,12 +165,6 @@ REDIS_PORT=6378
 REDIS_DB=0
 REDIS_TLS=false
 REDIS_TLS_INSECURE=true
-
-# GitHub Integration (Optional)
-GITHUB_PERSONAL_TOKEN=your_github_token
-
-# Additional Configuration
-CORS_ORIGIN=http://localhost:4173
 ```
 
 ## 🗄️ Database Architecture
@@ -199,26 +174,76 @@ CORS_ORIGIN=http://localhost:4173
 The application uses multiple PostgreSQL schemas for logical separation:
 
 - **`public`**: Default PostgreSQL schema
-- **`core`**: Core business entities and data
-- **`discovery_source`**: Data discovery and integration metadata
+- **`core`**: Core business entities (Clinic, Doctor, User, Review)
 
 ### Entity Structure
 
-```typescript
-// Core entities example
-@Entity({ schema: 'core', name: 'mcp' })
-export class Mcp extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+#### Clinic Entity
 
-  @Column({ type: 'varchar', length: 255 })
+```typescript
+@Entity({ schema: 'core', name: 'clinic' })
+export class Clinic extends AbstractBaseEntity {
+  @Column({ length: 64, nullable: false })
   name: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @Column({
+    type: 'geography',
+    srid: 4326,
+    spatialFeatureType: 'Point',
+  })
+  coordinates: Point;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @OneToMany(() => Doctor, (doctor) => doctor.clinic)
+  doctors: Doctor[];
+}
+```
+
+#### Doctor Entity
+
+```typescript
+@Entity({ schema: 'core', name: 'doctor' })
+export class Doctor extends AbstractBaseEntity {
+  @Column({ length: 64, nullable: false })
+  name: string;
+
+  @Column()
+  @Check(`"yoe" >= 0 AND "yoe" <= 100`)
+  yoe: number; // Years of experience
+
+  @ManyToOne(() => Clinic, (clinic) => clinic.doctors)
+  clinic: Clinic;
+
+  @OneToMany(() => Review, (review) => review.doctor)
+  reviews: Review[];
+}
+```
+
+#### User Entity
+
+```typescript
+@Entity({ schema: 'core', name: 'user' })
+export class User extends AbstractBaseEntity {
+  @Column({ length: 64, nullable: false })
+  name: string;
+
+  @OneToMany(() => Review, (review) => review.user)
+  reviews: Review[];
+}
+```
+
+#### Review Entity
+
+```typescript
+@Entity({ schema: 'core', name: 'review' })
+export class Review extends AbstractBaseEntity {
+  @Column({ length: 1000, nullable: false })
+  message: string;
+
+  @ManyToOne(() => User, (user) => user.reviews)
+  user: User;
+
+  @ManyToOne(() => Doctor, (doctor) => doctor.reviews)
+  doctor: Doctor;
 }
 ```
 
@@ -234,51 +259,97 @@ nx migration:generate healthcare-server --name=DescriptiveName
 nx migration:deploy healthcare-server
 ```
 
-## 📊 GraphQL API
+## 📊 REST API
 
-### Schema-First Approach
+### API Base Path
 
-The server uses NestJS's code-first approach for GraphQL schema generation:
+All endpoints are prefixed with `/v1`:
 
-```typescript
-@Resolver(() => Author)
-export class AuthorsResolver {
-  @Query(() => Author)
-  author(@Args('id', { type: () => Int }) id: number): Author {
-    return { id, firstName: 'John', lastName: 'Doe' };
-  }
+- Base URL: `http://localhost:3000/v1`
 
-  @ResolveField()
-  posts(@Parent() author: Author): Post[] {
-    return [{ id: 1, title: 'Sample Post', votes: 10 }];
-  }
+### Clinic Endpoints
+
+#### Create Clinic
+
+```http
+POST /v1/clinic
+Content-Type: application/json
+
+{
+  "name": "City Medical Center",
+  "lat": 40.7128,
+  "lng": -74.0060
 }
 ```
 
-### GraphQL Playground
+#### Find Nearby Clinics
 
-Access the interactive GraphQL playground at:
+```http
+GET /v1/clinic/nearby?lat=40.7128&lng=-74.0060&radius=20&limit=10&cursor=optional_cursor
+```
 
-- Development: `http://localhost:3000/graphql`
-- Production: Disabled for security
+**Query Parameters:**
 
-### Example Queries
+- `lat` (required): Latitude (-90 to 90)
+- `lng` (required): Longitude (-180 to 180)
+- `radius` (required): Search radius in kilometers
+- `limit` (optional): Number of results (default: 10, max: 100)
+- `cursor` (optional): Pagination cursor
 
-```graphql
-# Get author with posts
-query GetAuthor($id: Int!) {
-  author(id: $id) {
-    id
-    firstName
-    lastName
-    posts {
-      id
-      title
-      votes
+**Response:**
+
+```json
+{
+  "cursor": "current_page_cursor",
+  "nextPage": "next_page_cursor_or_null",
+  "data": [
+    {
+      "id": "uuid",
+      "name": "Clinic Name",
+      "coordinates": { "type": "Point", "coordinates": [lng, lat] },
+      "distance": 1234.56,
+      "doctors": [
+        {
+          "id": "uuid",
+          "name": "Dr. Smith",
+          "yoe": 10
+        }
+      ],
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
     }
-  }
+  ]
 }
 ```
+
+#### Create Doctor for Clinic
+
+```http
+POST /v1/clinic/:clinicId/doctor
+Content-Type: application/json
+
+{
+  "name": "Dr. John Smith",
+  "yoe": 10
+}
+```
+
+### Geospatial Queries
+
+The application uses PostGIS for efficient geospatial queries:
+
+- **ST_Distance**: Calculate distance between points
+- **ST_DWithin**: Find points within a radius
+- **ST_SetSRID**: Set spatial reference system (4326 for WGS84)
+- **ST_MakePoint**: Create point geometry
+
+### Cursor-Based Pagination
+
+The API uses cursor-based pagination for efficient data loading:
+
+- Cursors encode the last item's distance and ID
+- Prevents duplicate results when new data is added
+- More efficient than offset-based pagination for large datasets
 
 ## 🔄 Background Jobs & Queues
 
@@ -298,7 +369,7 @@ query GetAuthor($id: Int!) {
 export class QueueModule {}
 ```
 
-### Job Processing
+### Adding Job Processors
 
 ```typescript
 @Processor('data-processing')
@@ -307,61 +378,6 @@ export class DataProcessor {
   async handleDataProcessing(job: Job<DataPayload>) {
     // Background job processing logic
     console.log('Processing data:', job.data);
-  }
-}
-```
-
-### Queue Management
-
-```bash
-# Queue monitoring available via Redis Insight
-# Access at http://localhost:8001 when using docker-compose
-```
-
-## 🔌 Third-Party Integrations
-
-### GitHub Integration
-
-```typescript
-@Injectable()
-export class GithubGraphqlService {
-  private githubClient: typeof gql | null = null;
-
-  constructor(private readonly configService: ConfigService) {}
-
-  async getRepository(owner: string, name: string) {
-    const client = this.getGithubGraphqlClient();
-
-    return await client(
-      `
-      query GetRepository($owner: String!, $name: String!) {
-        repository(owner: $owner, name: $name) {
-          id
-          name
-          description
-          stargazerCount
-        }
-      }
-    `,
-      { owner, name }
-    );
-  }
-}
-```
-
-### Configuration
-
-```typescript
-// GitHub service configuration
-@Injectable()
-export class GithubService {
-  constructor(
-    private readonly githubGraphql: GithubGraphqlService,
-    private readonly configService: ConfigService
-  ) {}
-
-  async fetchRepositoryData(repoUrl: string) {
-    // Integration logic
   }
 }
 ```
@@ -381,26 +397,14 @@ export class HealthController {
       service: 'healthcare-server',
     };
   }
-
-  @Get('database')
-  async databaseHealth() {
-    // Database connectivity check
-  }
-
-  @Get('redis')
-  async redisHealth() {
-    // Redis connectivity check
-  }
 }
 ```
 
 ### Available Endpoints
 
 - `GET /v1/health` - General health status
-- `GET /v1/health/database` - Database connectivity
-- `GET /v1/health/redis` - Redis connectivity
 
-## 🛡️ Security & Authentication
+## 🛡️ Security & Validation
 
 ### CORS Configuration
 
@@ -409,17 +413,31 @@ export class HealthController {
 app.enableCors({
   origin: process.env.CORS_ORIGIN || 'http://localhost:4173',
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 });
 ```
 
-### Environment Validation
+### Input Validation
+
+The application uses `class-validator` for DTO validation:
 
 ```typescript
-// Type-safe configuration
-export class ConfigService {
-  get<T>(key: string, defaultValue?: T): T {
-    return (process.env[key] as T) || defaultValue;
-  }
+export class CreateClinicDto {
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(64)
+  name: string;
+
+  @IsNumber()
+  @Min(-90)
+  @Max(90)
+  lat: number;
+
+  @IsNumber()
+  @Min(-180)
+  @Max(180)
+  lng: number;
 }
 ```
 
@@ -429,10 +447,21 @@ export class ConfigService {
 - Type safety with TypeScript
 - Environment-based configuration
 - Structured error handling
+- Global validation pipe
 
 ## 📈 Performance & Optimization
 
+### Database Optimization
+
+- Connection pooling with TypeORM
+- PostGIS spatial indexing for geospatial queries
+- Cursor-based pagination for efficient data loading
+- Schema-based data isolation
+- Migration-driven schema evolution
+
 ### Caching Strategy
+
+Redis is configured and ready for use:
 
 ```typescript
 @Injectable()
@@ -449,13 +478,6 @@ export class CacheService {
   }
 }
 ```
-
-### Database Optimization
-
-- Connection pooling with TypeORM
-- Query optimization with proper indexing
-- Schema-based data isolation
-- Migration-driven schema evolution
 
 ### Build Optimization
 
@@ -503,69 +525,7 @@ RUN yarn nx build healthcare-server --configuration=production
 
 # Start application
 EXPOSE 3000
-CMD ["yarn", "nx", "start", "healthcare-server", "--configuration=production"]
-```
-
-## 🧪 Testing Strategy
-
-### Unit Testing
-
-```typescript
-// Example test file
-describe('AuthorsResolver', () => {
-  let resolver: AuthorsResolver;
-
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [AuthorsResolver],
-    }).compile();
-
-    resolver = module.get<AuthorsResolver>(AuthorsResolver);
-  });
-
-  it('should return author data', () => {
-    const result = resolver.author(1);
-    expect(result).toHaveProperty('id', 1);
-  });
-});
-```
-
-### Integration Testing
-
-```typescript
-// Database integration tests
-describe('Database Integration', () => {
-  let app: INestApplication;
-
-  beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
-
-  it('should connect to database', async () => {
-    // Database connection tests
-  });
-});
-```
-
-### Running Tests
-
-```bash
-# Unit tests
-nx test healthcare-server
-
-# Integration tests
-nx test:integration healthcare-server
-
-# E2E tests
-nx test:e2e healthcare-server
-
-# Coverage report
-nx test healthcare-server --coverage
+CMD ["yarn", "nx", "start", "healthcare-server"]
 ```
 
 ## 🔧 Module Development
@@ -576,8 +536,8 @@ nx test healthcare-server --coverage
 # Generate new module
 nx g @nx/nest:module feature-name --project=healthcare-server
 
-# Generate resolver
-nx g @nx/nest:resolver feature-name --project=healthcare-server
+# Generate controller
+nx g @nx/nest:controller feature-name --project=healthcare-server
 
 # Generate service
 nx g @nx/nest:service feature-name --project=healthcare-server
@@ -590,8 +550,11 @@ nx g @nx/nest:service feature-name --project=healthcare-server
   imports: [
     // Module dependencies
   ],
+  controllers: [
+    // REST controllers
+  ],
   providers: [
-    // Services, resolvers, etc.
+    // Services, etc.
   ],
   exports: [
     // Exported services
@@ -600,23 +563,21 @@ nx g @nx/nest:service feature-name --project=healthcare-server
 export class FeatureModule {}
 ```
 
-### GraphQL Resolver Pattern
+### REST Controller Pattern
 
 ```typescript
-@Resolver(() => EntityModel)
-export class EntityResolver {
-  constructor(private readonly entityService: EntityService) {}
+@Controller('resource')
+export class ResourceController {
+  constructor(private readonly resourceService: ResourceService) {}
 
-  @Query(() => [EntityModel])
-  async entities(): Promise<EntityModel[]> {
-    return this.entityService.findAll();
+  @Get()
+  async findAll(): Promise<Resource[]> {
+    return this.resourceService.findAll();
   }
 
-  @Mutation(() => EntityModel)
-  async createEntity(
-    @Args('input') input: CreateEntityInput
-  ): Promise<EntityModel> {
-    return this.entityService.create(input);
+  @Post()
+  async create(@Body() createDto: CreateResourceDto): Promise<Resource> {
+    return this.resourceService.create(createDto);
   }
 }
 ```
@@ -647,30 +608,6 @@ export class MyService {
 }
 ```
 
-### Performance Monitoring
-
-```typescript
-// Custom decorator for performance monitoring
-export function Track() {
-  return function (
-    target: any,
-    propertyKey: string,
-    descriptor: PropertyDescriptor
-  ) {
-    const originalMethod = descriptor.value;
-
-    descriptor.value = async function (...args: any[]) {
-      const start = Date.now();
-      const result = await originalMethod.apply(this, args);
-      const duration = Date.now() - start;
-
-      console.log(`${propertyKey} executed in ${duration}ms`);
-      return result;
-    };
-  };
-}
-```
-
 ## 🤝 Contributing
 
 ### Development Workflow
@@ -681,7 +618,6 @@ export function Track() {
    ```bash
    nx lint healthcare-server
    nx typecheck healthcare-server
-   nx test healthcare-server
    ```
 4. Create database migration if needed
 5. Update documentation
@@ -708,8 +644,7 @@ export function Track() {
 
 - [NestJS Documentation](https://docs.nestjs.com)
 - [TypeORM Documentation](https://typeorm.io)
-- [Apollo Server Documentation](https://apollographql.com/docs/apollo-server)
+- [PostGIS Documentation](https://postgis.net/documentation)
 - [BullMQ Documentation](https://docs.bullmq.io)
 - [PostgreSQL Documentation](https://postgresql.org/docs)
 - [Redis Documentation](https://redis.io/documentation)
-- [GitHub GraphQL API](https://docs.github.com/en/graphql)
