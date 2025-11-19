@@ -1,12 +1,14 @@
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/ui/components/ui/card';
 import { cn } from '@/ui/lib/utils';
 import { Clinic, Doctor } from '@/clinic/@types/clinic';
 import { MapPin } from 'lucide-react';
+import { Button } from '@/ui/components/ui/button';
 
 interface ClinicDoctorCardProps {
   clinic: Clinic;
@@ -43,6 +45,15 @@ export function ClinicDoctorCard({
           </div>
         </div>
       </CardContent>
+      <CardFooter>
+        <Button
+          className="w-full"
+          data-cal-link="nabhag/book-appointment"
+          data-cal-config='{"theme":"dark"}'
+        >
+          Book Appointment
+        </Button>
+      </CardFooter>
     </Card>
   );
 }

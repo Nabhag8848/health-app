@@ -2,6 +2,7 @@
   "name": "@healthcare/source",
   "private": true,
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "@nestjs/apollo": "^13.1.0",
     "@nestjs/bullmq": "^11.0.2",
     "@nestjs/common": "^11.0.0",
