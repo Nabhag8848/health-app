@@ -34,6 +34,10 @@ export function useNearbyClinics() {
     getNextPageParam: (lastPage) => {
       return lastPage.nextPage ?? undefined;
     },
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchInterval: false,
+    staleTime: 1000 * 60, // 1 minute
   });
 
   const clinics = query.data?.pages.flatMap((page) => page.data) ?? [];
@@ -47,6 +51,6 @@ export function useNearbyClinics() {
     fetchNextPage: query.fetchNextPage,
     hasNextPage: query.hasNextPage,
     isFetchingNextPage: query.isFetchingNextPage,
-    isFetching: query.isFetching,
+    isRefetching: query.isRefetching,
   };
 }

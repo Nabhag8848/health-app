@@ -13,16 +13,17 @@ export function ClinicsPage() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    isFetching,
+    isRefetching,
   } = useNearbyClinics();
 
   const ref = useOnInView(
     (inView) => {
-      if (inView && !isFetching && hasNextPage) {
+      if (inView && !isFetchingNextPage && !isRefetching && hasNextPage) {
         fetchNextPage();
       }
     },
     {
+      rootMargin: '200px 0px',
       threshold: 0,
     }
   );
@@ -58,9 +59,13 @@ export function ClinicsPage() {
             doctor={doctor}
           />
         ))}
-        {(isLoading || isFetchingNextPage || isFetching) &&
+        {isLoading &&
           Array.from({ length: 9 }).map((_, index) => (
-            <ShadowCard key={`shadow-${index}`} />
+            <ShadowCard key={`shadow-initial-${index}`} />
+          ))}
+        {isFetchingNextPage &&
+          Array.from({ length: 3 }).map((_, index) => (
+            <ShadowCard key={`shadow-next-${index}`} />
           ))}
       </div>
       {hasNextPage && <div ref={ref} className="h-8" />}
