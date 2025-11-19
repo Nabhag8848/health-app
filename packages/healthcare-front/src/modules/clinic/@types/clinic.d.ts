@@ -18,4 +18,11 @@ export interface FindNearbyClinicParams {
   lat: number;
   lng: number;
   radius: number; // in kilometers
+  cursor?: string;
+}
+
+export interface ClinicPaginationResponse {
+  cursor: string | null;
+  nextPage: string | null;
+  data: Clinic[];
 }

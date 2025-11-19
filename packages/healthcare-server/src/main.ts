@@ -14,6 +14,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -31,6 +32,13 @@ async function bootstrap() {
 
   const globalPrefix = 'v1';
   app.setGlobalPrefix(globalPrefix);
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      skipMissingProperties: false,
+    })
+  );
 
   const port = config.get<number>('SERVER_PORT', 3000);
 
