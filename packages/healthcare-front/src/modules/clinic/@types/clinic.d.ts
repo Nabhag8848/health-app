@@ -12,6 +12,7 @@ export interface Clinic {
     coordinates: [number, number]; // [lng, lat]
   };
   doctors: Doctor[];
+  distance: number;
 }
 
 export interface FindNearbyClinicParams {

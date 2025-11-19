@@ -1,4 +1,4 @@
-import { Expose, Type } from 'class-transformer';
+import { Expose, Transform, Type } from 'class-transformer';
 import { DoctorDto } from '@/modules/api/doctor/dto/doctor.dto';
 
 export class ClinicWithDoctorsDto {
@@ -9,6 +9,10 @@ export class ClinicWithDoctorsDto {
   name: string;
 
   @Expose()
+  @Transform(({ value }) => {
+    const km = (value as number) / 1000;
+    return Math.round(km * 100) / 100;
+  })
   distance: number;
 
   @Expose()
